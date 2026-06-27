@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reseñas App Store · MBC</title>
+  <meta name="description" content="Explorador de reseñas de la App Store de apps peruanas (Nueva BanBif App y Agora): ratings, distribución, tendencias y voz del cliente. Minsait Business Consulting Perú." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5ecdc;
+      --cream-2: #fffaf0;
+      --ink: #2a0e1a;
+      --ink-soft: #5a2838;
+      --plum: #480e2a;
+      --rose: #ff0054;
+      --rose-soft: #ffb2b8;
+      --teal: #69dbab;
+      --amber: #f0a818;
+      --sky: #41B9FF;
+      --border: rgba(72, 14, 42, 0.16);
+      --shadow: 0 10px 30px -12px rgba(72, 14, 42, 0.28);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--cream);
+      color: var(--ink);
+      min-height: 100dvh;
+      position: relative;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before, body::after {
+      content: ""; position: fixed; border-radius: 9999px; filter: blur(60px); z-index: 0; pointer-events: none;
+    }
+    body::before { width: 520px; height: 520px; top: -160px; right: -120px; background: radial-gradient(circle, rgba(255,0,84,0.12), transparent 70%); }
+    body::after  { width: 460px; height: 460px; bottom: -180px; left: -120px; background: radial-gradient(circle, rgba(72,14,42,0.16), transparent 70%); }
+
+    .wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+
+    /* Header */
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; gap: 12px; flex-wrap: wrap; }
+    .back {
+      display: inline-flex; align-items: center; gap: 7px; text-decoration: none;
+      font-size: 0.8rem; font-weight: 700; color: var(--plum);
+      background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow);
+      padding: 8px 14px; border-radius: 9999px; transition: transform .25s, border-color .25s;
+    }
+    .back:hover { transform: translateX(-3px); border-color: rgba(255,0,84,.4); }
+    .back svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .brand-badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px; border-radius: 9999px;
+      background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow);
+      font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--plum);
+    }
+    .brand-badge .dot { width: 8px; height: 8px; border-radius: 9999px; background: var(--rose); box-shadow: 0 0 10px var(--rose); }
+
+    header.hero { margin-bottom: 30px; }
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
+    h1 .accent { color: var(--rose); }
+    .subtitle { font-size: clamp(1rem, 2vw, 1.1rem); color: var(--ink-soft); max-width: 640px; }
+
+    /* App selector */
+    .seg { display: inline-flex; background: var(--cream-2); border: 1px solid var(--border); border-radius: 9999px; padding: 5px; box-shadow: var(--shadow); margin: 24px 0 28px; gap: 4px; flex-wrap: wrap; }
+    .seg button {
+      font-family: inherit; font-size: 0.85rem; font-weight: 700; color: var(--ink-soft);
+      background: transparent; border: none; cursor: pointer; padding: 9px 20px; border-radius: 9999px; transition: all .25s;
+    }
+    .seg button.active { background: linear-gradient(135deg, var(--plum), var(--rose)); color: #fff; box-shadow: 0 8px 18px -8px rgba(72,14,42,.5); }
+
+    /* KPI cards */
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 28px; }
+    .kpi { background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 20px; padding: 20px 22px; }
+    .kpi .label { font-size: 0.72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+    .kpi .value { font-size: 1.9rem; font-weight: 900; letter-spacing: -0.02em; }
+    .kpi .value small { font-size: 1rem; font-weight: 700; color: var(--ink-soft); }
+    .kpi .sub { font-size: 0.74rem; color: var(--ink-soft); margin-top: 4px; }
+
+    /* Panels */
+    .panel { background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 24px; padding: 26px; margin-bottom: 24px; }
+    .panel h2 { font-size: 1.05rem; font-weight: 800; margin-bottom: 18px; }
+
+    /* Rating distribution */
+    .dist-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .dist-row .star-lbl { width: 42px; font-size: 0.82rem; font-weight: 800; color: var(--ink-soft); display: flex; align-items: center; gap: 3px; }
+    .dist-row .star-lbl svg { width: 13px; height: 13px; fill: var(--amber); }
+    .bar-track { flex: 1; height: 14px; background: rgba(72,14,42,.07); border-radius: 9999px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 9999px; background: linear-gradient(90deg, var(--rose), var(--rose-soft)); transition: width .6s cubic-bezier(.16,1,.3,1); }
+    .dist-row .count { width: 86px; text-align: right; font-size: 0.8rem; font-weight: 700; color: var(--ink-soft); }
+
+    /* Controls */
+    .controls { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+    .controls input, .controls select {
+      font-family: inherit; font-size: 0.88rem; color: var(--ink);
+      background: var(--cream-2); border: 1px solid var(--border); border-radius: 12px; padding: 11px 14px; box-shadow: var(--shadow);
+    }
+    .controls input { flex: 1; min-width: 200px; }
+    .controls input:focus, .controls select:focus { outline: none; border-color: rgba(255,0,84,.5); }
+
+    /* Reviews */
+    .review { border-top: 1px solid var(--border); padding: 18px 0; }
+    .review:first-child { border-top: none; padding-top: 0; }
+    .review-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+    .stars { color: var(--amber); font-size: 0.95rem; letter-spacing: 1px; }
+    .stars .off { color: rgba(72,14,42,.18); }
+    .review-title { font-weight: 800; font-size: 0.98rem; }
+    .pill { font-size: 9.5px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 4px 9px; border-radius: 9999px; color: #fff; }
+    .pill.banbif { background: linear-gradient(135deg, var(--sky), var(--plum)); }
+    .pill.agora { background: linear-gradient(135deg, var(--teal), #2a8f6a); }
+    .review-text { font-size: 0.9rem; line-height: 1.55; color: var(--ink-soft); margin-bottom: 6px; }
+    .review-meta { font-size: 0.74rem; color: var(--ink-soft); opacity: .85; }
+    .dev-resp { margin-top: 8px; padding: 10px 14px; background: rgba(72,14,42,.05); border-left: 3px solid var(--rose); border-radius: 8px; font-size: 0.82rem; color: var(--ink-soft); }
+    .dev-resp b { color: var(--plum); }
+    .empty { text-align: center; color: var(--ink-soft); padding: 30px; font-size: 0.9rem; }
+    .more { display: block; margin: 18px auto 0; font-family: inherit; font-size: 0.82rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--rose); background: transparent; border: 1px solid rgba(255,0,84,.4); border-radius: 9999px; padding: 11px 24px; cursor: pointer; transition: all .25s; }
+    .more:hover { background: rgba(255,0,84,.07); }
+
+    footer { text-align: center; margin-top: 48px; font-size: 0.78rem; color: var(--ink-soft); }
+    footer a { color: var(--rose); text-decoration: none; font-weight: 700; }
+    footer .sep { margin: 0 8px; opacity: .5; }
+
+    .loading { text-align: center; padding: 60px; color: var(--ink-soft); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="back" href="https://nelson2206.github.io/mbc-hub/">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Hub MBC
+      </a>
+      <span class="brand-badge"><span class="dot"></span> Minsait Business Consulting · Perú</span>
+    </div>
+
+    <header class="hero">
+      <h1>Reseñas <span class="accent">App Store</span></h1>
+      <p class="subtitle">Voz del cliente de apps peruanas en la Apple App Store. Explora ratings, distribución y comentarios de la <b>Nueva BanBif App</b> y <b>Agora</b>, extraídos automáticamente con el scraper del proyecto.</p>
+    </header>
+
+    <div class="seg" id="seg">
+      <button data-app="all" class="active">Ambas</button>
+      <button data-app="banbif">BanBif</button>
+      <button data-app="agora">Agora</button>
+    </div>
+
+    <div id="content">
+      <div class="loading">Cargando reseñas…</div>
+    </div>
+
+    <footer>
+      Minsait Business Consulting · Perú
+      <span class="sep">·</span> Datos: Apple App Store (Perú)
+      <span class="sep">·</span> <a href="https://github.com/nelson2206/app-reviews-scraper">Código en GitHub</a>
+    </footer>
+  </div>
+
+  <script>
+    const STAR = '<svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 2.5-7.5L3 9h7z"/></svg>';
+    const PAGE = 25;
+    let DATA = { banbif: [], agora: [] };
+    let current = 'all';
+    let shown = PAGE;
+
+    function uname(u) {
+      if (!u) return 'Anónimo';
+      if (typeof u === 'object') return u.label || 'Anónimo';
+      return u;
+    }
+    function parseDate(s) {
+      if (!s) return null;
+      const d = new Date(String(s).replace(' ', 'T'));
+      return isNaN(d) ? null : d;
+    }
+    function fmtDate(d) {
+      if (!d) return 's/f';
+      return d.toLocaleDateString('es-PE', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    }
+    function starStr(r) {
+      r = Math.round(Number(r) || 0);
+      let s = '';
+      for (let i = 1; i <= 5; i++) s += i <= r ? '★' : '<span class="off">★</span>';
+      return s;
+    }
+
+    function currentRows() {
+      let rows = current === 'all' ? [...DATA.banbif, ...DATA.agora] : DATA[current];
+      return rows.map(r => ({ ...r, _date: parseDate(r.review_date) }))
+                 .sort((a, b) => (b._date?.getTime() || 0) - (a._date?.getTime() || 0));
+    }
+
+    function filtered(rows) {
+      const q = document.getElementById('q')?.value.trim().toLowerCase();
+      const rf = document.getElementById('rf')?.value;
+      return rows.filter(r => {
+        if (rf && rf !== 'all' && Math.round(Number(r.rating)) !== Number(rf)) return false;
+        if (q) {
+          const hay = (esc(r.review_title) + ' ' + esc(r.review_text) + ' ' + uname(r.user_name)).toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+
+    function render() {
+      const rows = currentRows();
+      const total = rows.length;
+      const rated = rows.filter(r => Number(r.rating) > 0);
+      const avg = rated.length ? rated.reduce((s, r) => s + Number(r.rating), 0) / rated.length : 0;
+      const dist = [0,0,0,0,0];
+      rated.forEach(r => { const n = Math.round(Number(r.rating)); if (n>=1&&n<=5) dist[n-1]++; });
+      const maxd = Math.max(...dist, 1);
+      const promoters = rated.filter(r => Number(r.rating) >= 4).length;
+      const detractors = rated.filter(r => Number(r.rating) <= 2).length;
+      const dates = rows.map(r => r._date).filter(Boolean).sort((a,b)=>a-b);
+
+      const kpis = `
+        <div class="kpis">
+          <div class="kpi"><div class="label">Reseñas</div><div class="value">${total}</div><div class="sub">total recolectadas</div></div>
+          <div class="kpi"><div class="label">Rating promedio</div><div class="value">${avg.toFixed(2)} <small>/ 5</small></div><div class="sub">${starStr(avg)}</div></div>
+          <div class="kpi"><div class="label">Promotores 4–5★</div><div class="value">${total?Math.round(promoters/rated.length*100):0}<small>%</small></div><div class="sub">${promoters} reseñas</div></div>
+          <div class="kpi"><div class="label">Detractores 1–2★</div><div class="value">${total?Math.round(detractors/rated.length*100):0}<small>%</small></div><div class="sub">${detractors} reseñas</div></div>
+          <div class="kpi"><div class="label">Periodo</div><div class="value" style="font-size:1.05rem;line-height:1.4">${dates.length?fmtDate(dates[0]):'—'}<br>→ ${dates.length?fmtDate(dates[dates.length-1]):'—'}</div></div>
+        </div>`;
+
+      const distHtml = `
+        <div class="panel">
+          <h2>Distribución de calificaciones</h2>
+          ${[5,4,3,2,1].map(n => {
+            const c = dist[n-1];
+            return `<div class="dist-row">
+              <span class="star-lbl">${n} ${STAR}</span>
+              <div class="bar-track"><div class="bar-fill" style="width:${c/maxd*100}%"></div></div>
+              <span class="count">${c} · ${rated.length?Math.round(c/rated.length*100):0}%</span>
+            </div>`;
+          }).join('')}
+        </div>`;
+
+      const list = filtered(rows);
+      const slice = list.slice(0, shown);
+      const reviewsHtml = `
+        <div class="panel">
+          <h2>Comentarios <span style="color:var(--ink-soft);font-weight:600">(${list.length})</span></h2>
+          <div class="controls">
+            <input id="q" type="search" placeholder="Buscar en comentarios, títulos o usuarios…" />
+            <select id="rf">
+              <option value="all">Todas las estrellas</option>
+              <option value="5">5 ★</option><option value="4">4 ★</option><option value="3">3 ★</option><option value="2">2 ★</option><option value="1">1 ★</option>
+            </select>
+          </div>
+          <div id="reviews">
+            ${slice.length ? slice.map(r => `
+              <div class="review">
+                <div class="review-head">
+                  <span class="stars">${starStr(r.rating)}</span>
+                  ${r.review_title ? `<span class="review-title">${esc(r.review_title)}</span>` : ''}
+                  <span class="pill ${r.app_name && r.app_name.includes('banbif') ? 'banbif':'agora'}">${r.app_name && r.app_name.includes('banbif') ? 'BanBif':'Agora'}</span>
+                </div>
+                ${r.review_text ? `<div class="review-text">${esc(r.review_text)}</div>` : ''}
+                <div class="review-meta">${esc(uname(r.user_name))} · ${fmtDate(r._date)}</div>
+                ${r.developer_response ? `<div class="dev-resp"><b>Respuesta del desarrollador:</b> ${esc(r.developer_response)}</div>` : ''}
+              </div>`).join('') : '<div class="empty">Sin reseñas que coincidan con el filtro.</div>'}
+          </div>
+          ${list.length > shown ? `<button class="more" id="more">Ver más (${list.length - shown} restantes)</button>` : ''}
+        </div>`;
+
+      document.getElementById('content').innerHTML = kpis + distHtml + reviewsHtml;
+
+      const q = document.getElementById('q'), rf = document.getElementById('rf'), more = document.getElementById('more');
+      if (q) { q.value = render._q || ''; q.oninput = () => { render._q = q.value; shown = PAGE; renderList(); }; }
+      if (rf) { rf.value = render._rf || 'all'; rf.onchange = () => { render._rf = rf.value; shown = PAGE; renderList(); }; }
+      if (more) more.onclick = () => { shown += PAGE; renderList(); };
+    }
+
+    // lightweight re-render of just the reviews list (keeps focus on search box)
+    function renderList() {
+      const rows = currentRows();
+      const list = filtered(rows);
+      const slice = list.slice(0, shown);
+      const box = document.getElementById('reviews');
+      const panel = box.closest('.panel');
+      panel.querySelector('h2').innerHTML = `Comentarios <span style="color:var(--ink-soft);font-weight:600">(${list.length})</span>`;
+      box.innerHTML = slice.length ? slice.map(r => `
+        <div class="review">
+          <div class="review-head">
+            <span class="stars">${starStr(r.rating)}</span>
+            ${r.review_title ? `<span class="review-title">${esc(r.review_title)}</span>` : ''}
+            <span class="pill ${r.app_name && r.app_name.includes('banbif') ? 'banbif':'agora'}">${r.app_name && r.app_name.includes('banbif') ? 'BanBif':'Agora'}</span>
+          </div>
+          ${r.review_text ? `<div class="review-text">${esc(r.review_text)}</div>` : ''}
+          <div class="review-meta">${esc(uname(r.user_name))} · ${fmtDate(r._date)}</div>
+          ${r.developer_response ? `<div class="dev-resp"><b>Respuesta del desarrollador:</b> ${esc(r.developer_response)}</div>` : ''}
+        </div>`).join('') : '<div class="empty">Sin reseñas que coincidan con el filtro.</div>';
+      const oldMore = document.getElementById('more');
+      if (oldMore) oldMore.remove();
+      if (list.length > shown) {
+        const btn = document.createElement('button');
+        btn.className = 'more'; btn.id = 'more';
+        btn.textContent = `Ver más (${list.length - shown} restantes)`;
+        btn.onclick = () => { shown += PAGE; renderList(); };
+        panel.appendChild(btn);
+      }
+    }
+
+    document.getElementById('seg').addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      current = b.dataset.app; shown = PAGE; render._q = ''; render._rf = 'all';
+      document.querySelectorAll('#seg button').forEach(x => x.classList.toggle('active', x === b));
+      render();
+    });
+
+    async function load() {
+      try {
+        const [banbif, agora] = await Promise.all([
+          fetch('data/banbif.json').then(r => r.json()),
+          fetch('data/agora.json').then(r => r.json())
+        ]);
+        DATA.banbif = banbif; DATA.agora = agora;
+        render();
+      } catch (err) {
+        document.getElementById('content').innerHTML =
+          '<div class="empty">No se pudieron cargar los datos. Si abriste el archivo localmente, sírvelo con un servidor (p. ej. <code>python -m http.server</code>) o ábrelo desde GitHub Pages.</div>';
+        console.error(err);
+      }
+    }
+    load();
+  </script>
+</body>
+</html>
