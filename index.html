@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reseñas App Store · MBC</title>
-  <meta name="description" content="Explorador de reseñas de la App Store de apps peruanas (Nueva BanBif App y Agora): ratings, distribución, tendencias y voz del cliente. Minsait Business Consulting Perú." />
+  <meta name="description" content="Extrae y explora reseñas de la Apple App Store de cualquier empresa o app: busca, elige y obtén ratings, distribución y comentarios en vivo. Minsait Business Consulting Perú." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -34,96 +34,102 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
-    body::before, body::after {
-      content: ""; position: fixed; border-radius: 9999px; filter: blur(60px); z-index: 0; pointer-events: none;
-    }
+    body::before, body::after { content: ""; position: fixed; border-radius: 9999px; filter: blur(60px); z-index: 0; pointer-events: none; }
     body::before { width: 520px; height: 520px; top: -160px; right: -120px; background: radial-gradient(circle, rgba(255,0,84,0.12), transparent 70%); }
     body::after  { width: 460px; height: 460px; bottom: -180px; left: -120px; background: radial-gradient(circle, rgba(72,14,42,0.16), transparent 70%); }
 
     .wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
 
-    /* Header */
     .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; gap: 12px; flex-wrap: wrap; }
-    .back {
-      display: inline-flex; align-items: center; gap: 7px; text-decoration: none;
-      font-size: 0.8rem; font-weight: 700; color: var(--plum);
-      background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow);
-      padding: 8px 14px; border-radius: 9999px; transition: transform .25s, border-color .25s;
-    }
+    .back { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; font-size: 0.8rem; font-weight: 700; color: var(--plum); background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); padding: 8px 14px; border-radius: 9999px; transition: transform .25s, border-color .25s; }
     .back:hover { transform: translateX(-3px); border-color: rgba(255,0,84,.4); }
     .back svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-    .brand-badge {
-      display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px; border-radius: 9999px;
-      background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow);
-      font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--plum);
-    }
+    .brand-badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px; border-radius: 9999px; background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--plum); }
     .brand-badge .dot { width: 8px; height: 8px; border-radius: 9999px; background: var(--rose); box-shadow: 0 0 10px var(--rose); }
 
-    header.hero { margin-bottom: 30px; }
+    header.hero { margin-bottom: 26px; }
     h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
     h1 .accent { color: var(--rose); }
-    .subtitle { font-size: clamp(1rem, 2vw, 1.1rem); color: var(--ink-soft); max-width: 640px; }
+    .subtitle { font-size: clamp(1rem, 2vw, 1.1rem); color: var(--ink-soft); max-width: 660px; }
 
-    /* App selector */
-    .seg { display: inline-flex; background: var(--cream-2); border: 1px solid var(--border); border-radius: 9999px; padding: 5px; box-shadow: var(--shadow); margin: 24px 0 28px; gap: 4px; flex-wrap: wrap; }
-    .seg button {
-      font-family: inherit; font-size: 0.85rem; font-weight: 700; color: var(--ink-soft);
-      background: transparent; border: none; cursor: pointer; padding: 9px 20px; border-radius: 9999px; transition: all .25s;
-    }
-    .seg button.active { background: linear-gradient(135deg, var(--plum), var(--rose)); color: #fff; box-shadow: 0 8px 18px -8px rgba(72,14,42,.5); }
+    /* Search panel */
+    .search-panel { background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 24px; padding: 22px; margin-bottom: 24px; }
+    .search-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .search-row select, .search-row input { font-family: inherit; font-size: 0.95rem; color: var(--ink); background: var(--cream); border: 1px solid var(--border); border-radius: 14px; padding: 13px 16px; }
+    .search-row select { flex: 0 0 auto; cursor: pointer; }
+    .search-row input { flex: 1; min-width: 200px; }
+    .search-row input:focus, .search-row select:focus { outline: none; border-color: rgba(255,0,84,.5); }
+    .btn { font-family: inherit; font-size: 0.95rem; font-weight: 800; color: #fff; background: linear-gradient(135deg, var(--plum), var(--rose)); border: none; border-radius: 14px; padding: 13px 26px; cursor: pointer; transition: transform .2s, box-shadow .2s; box-shadow: 0 8px 18px -8px rgba(72,14,42,.5); }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 26px -10px rgba(72,14,42,.55); }
+    .btn:disabled { opacity: .55; cursor: default; transform: none; }
+    .quick { margin-top: 14px; font-size: 0.82rem; color: var(--ink-soft); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .chip { font-family: inherit; font-size: 0.8rem; font-weight: 700; color: var(--plum); background: var(--cream); border: 1px solid var(--border); border-radius: 9999px; padding: 6px 14px; cursor: pointer; transition: all .2s; }
+    .chip:hover { border-color: rgba(255,0,84,.45); color: var(--rose); }
 
-    /* KPI cards */
-    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 28px; }
+    /* App result cards */
+    .results { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+    .app-card { display: flex; gap: 14px; align-items: center; text-align: left; background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 18px; padding: 16px; cursor: pointer; transition: transform .25s, border-color .25s; font-family: inherit; }
+    .app-card:hover { transform: translateY(-3px); border-color: rgba(255,0,84,.4); }
+    .app-card img { width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0; background: rgba(72,14,42,.06); }
+    .app-card .ac-name { font-weight: 800; font-size: 0.95rem; line-height: 1.2; }
+    .app-card .ac-dev { font-size: 0.78rem; color: var(--ink-soft); margin-top: 3px; }
+    .app-card .ac-meta { font-size: 0.74rem; color: var(--ink-soft); margin-top: 5px; }
+    .app-card .ac-meta b { color: var(--plum); }
+
+    /* App header (selected) */
+    .app-head { display: flex; gap: 16px; align-items: center; background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 20px; padding: 18px 20px; margin-bottom: 22px; flex-wrap: wrap; }
+    .app-head img { width: 64px; height: 64px; border-radius: 16px; }
+    .app-head .ah-name { font-weight: 900; font-size: 1.3rem; letter-spacing: -.01em; }
+    .app-head .ah-dev { font-size: 0.85rem; color: var(--ink-soft); }
+    .app-head .ah-actions { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-sm { font-family: inherit; font-size: 0.78rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--plum); background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 9px 14px; cursor: pointer; transition: all .2s; }
+    .btn-sm:hover { border-color: rgba(255,0,84,.45); color: var(--rose); }
+
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 24px; }
     .kpi { background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 20px; padding: 20px 22px; }
     .kpi .label { font-size: 0.72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
     .kpi .value { font-size: 1.9rem; font-weight: 900; letter-spacing: -0.02em; }
     .kpi .value small { font-size: 1rem; font-weight: 700; color: var(--ink-soft); }
     .kpi .sub { font-size: 0.74rem; color: var(--ink-soft); margin-top: 4px; }
 
-    /* Panels */
     .panel { background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 24px; padding: 26px; margin-bottom: 24px; }
     .panel h2 { font-size: 1.05rem; font-weight: 800; margin-bottom: 18px; }
 
-    /* Rating distribution */
     .dist-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
     .dist-row .star-lbl { width: 42px; font-size: 0.82rem; font-weight: 800; color: var(--ink-soft); display: flex; align-items: center; gap: 3px; }
     .dist-row .star-lbl svg { width: 13px; height: 13px; fill: var(--amber); }
     .bar-track { flex: 1; height: 14px; background: rgba(72,14,42,.07); border-radius: 9999px; overflow: hidden; }
     .bar-fill { height: 100%; border-radius: 9999px; background: linear-gradient(90deg, var(--rose), var(--rose-soft)); transition: width .6s cubic-bezier(.16,1,.3,1); }
-    .dist-row .count { width: 86px; text-align: right; font-size: 0.8rem; font-weight: 700; color: var(--ink-soft); }
+    .dist-row .count { width: 92px; text-align: right; font-size: 0.8rem; font-weight: 700; color: var(--ink-soft); }
 
-    /* Controls */
     .controls { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
-    .controls input, .controls select {
-      font-family: inherit; font-size: 0.88rem; color: var(--ink);
-      background: var(--cream-2); border: 1px solid var(--border); border-radius: 12px; padding: 11px 14px; box-shadow: var(--shadow);
-    }
+    .controls input, .controls select { font-family: inherit; font-size: 0.88rem; color: var(--ink); background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 11px 14px; }
     .controls input { flex: 1; min-width: 200px; }
     .controls input:focus, .controls select:focus { outline: none; border-color: rgba(255,0,84,.5); }
 
-    /* Reviews */
     .review { border-top: 1px solid var(--border); padding: 18px 0; }
     .review:first-child { border-top: none; padding-top: 0; }
     .review-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
     .stars { color: var(--amber); font-size: 0.95rem; letter-spacing: 1px; }
     .stars .off { color: rgba(72,14,42,.18); }
     .review-title { font-weight: 800; font-size: 0.98rem; }
-    .pill { font-size: 9.5px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 4px 9px; border-radius: 9999px; color: #fff; }
-    .pill.banbif { background: linear-gradient(135deg, var(--sky), var(--plum)); }
-    .pill.agora { background: linear-gradient(135deg, var(--teal), #2a8f6a); }
     .review-text { font-size: 0.9rem; line-height: 1.55; color: var(--ink-soft); margin-bottom: 6px; }
     .review-meta { font-size: 0.74rem; color: var(--ink-soft); opacity: .85; }
-    .dev-resp { margin-top: 8px; padding: 10px 14px; background: rgba(72,14,42,.05); border-left: 3px solid var(--rose); border-radius: 8px; font-size: 0.82rem; color: var(--ink-soft); }
-    .dev-resp b { color: var(--plum); }
     .empty { text-align: center; color: var(--ink-soft); padding: 30px; font-size: 0.9rem; }
     .more { display: block; margin: 18px auto 0; font-family: inherit; font-size: 0.82rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--rose); background: transparent; border: 1px solid rgba(255,0,84,.4); border-radius: 9999px; padding: 11px 24px; cursor: pointer; transition: all .25s; }
     .more:hover { background: rgba(255,0,84,.07); }
 
+    /* loading */
+    .loading { text-align: center; padding: 50px 20px; color: var(--ink-soft); }
+    .spinner { width: 38px; height: 38px; border: 4px solid rgba(72,14,42,.12); border-top-color: var(--rose); border-radius: 50%; margin: 0 auto 16px; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading .pmsg { font-size: 0.9rem; font-weight: 600; }
+    .hint { text-align: center; color: var(--ink-soft); padding: 22px; font-size: 0.88rem; }
+    .err { background: rgba(255,0,84,.06); border: 1px solid rgba(255,0,84,.3); color: var(--ink); border-radius: 16px; padding: 18px; font-size: 0.9rem; }
+
     footer { text-align: center; margin-top: 48px; font-size: 0.78rem; color: var(--ink-soft); }
     footer a { color: var(--rose); text-decoration: none; font-weight: 700; }
     footer .sep { margin: 0 8px; opacity: .5; }
-
-    .loading { text-align: center; padding: 60px; color: var(--ink-soft); }
   </style>
 </head>
 <body>
@@ -137,22 +143,41 @@
 
     <header class="hero">
       <h1>Reseñas <span class="accent">App Store</span></h1>
-      <p class="subtitle">Voz del cliente de apps peruanas en la Apple App Store. Explora ratings, distribución y comentarios de la <b>Nueva BanBif App</b> y <b>Agora</b>, extraídos automáticamente con el scraper del proyecto.</p>
+      <p class="subtitle">Busca <b>cualquier empresa o app</b>, elígela y extrae sus reseñas de la Apple App Store en vivo: ratings, distribución de estrellas y comentarios. Sin instalar nada — el scraping corre en tu navegador.</p>
     </header>
 
-    <div class="seg" id="seg">
-      <button data-app="all" class="active">Ambas</button>
-      <button data-app="banbif">BanBif</button>
-      <button data-app="agora">Agora</button>
+    <div class="search-panel">
+      <div class="search-row">
+        <select id="country" title="Tienda (país)">
+          <option value="pe" selected>🇵🇪 Perú</option>
+          <option value="us">🇺🇸 EE.UU.</option>
+          <option value="mx">🇲🇽 México</option>
+          <option value="cl">🇨🇱 Chile</option>
+          <option value="co">🇨🇴 Colombia</option>
+          <option value="ar">🇦🇷 Argentina</option>
+          <option value="es">🇪🇸 España</option>
+          <option value="br">🇧🇷 Brasil</option>
+        </select>
+        <input id="term" type="search" placeholder="Empresa o app… (ej. Interbank, BCP, Yape, Rappi)" autocomplete="off" />
+        <button class="btn" id="go">Buscar</button>
+      </div>
+      <div class="quick">
+        Pruebas rápidas:
+        <button class="chip" data-id="6736497481" data-cc="pe" data-name="Nueva BanBif App">BanBif</button>
+        <button class="chip" data-id="1478814349" data-cc="pe" data-name="Agora – Ahorra y Disfruta">Agora</button>
+        <button class="chip" data-id="1147249919" data-cc="pe" data-name="Yape">Yape</button>
+        <button class="chip" data-id="777961079" data-cc="pe" data-name="Banca Móvil BCP">BCP</button>
+        <button class="chip" data-id="378649517" data-cc="pe" data-name="Interbank APP">Interbank</button>
+      </div>
     </div>
 
     <div id="content">
-      <div class="loading">Cargando reseñas…</div>
+      <div class="hint">Escribe una empresa y pulsa <b>Buscar</b>, o usa una prueba rápida.</div>
     </div>
 
     <footer>
       Minsait Business Consulting · Perú
-      <span class="sep">·</span> Datos: Apple App Store (Perú)
+      <span class="sep">·</span> Fuente: Apple App Store (datos públicos)
       <span class="sep">·</span> <a href="https://github.com/nelson2206/app-reviews-scraper">Código en GitHub</a>
     </footer>
   </div>
@@ -160,175 +185,254 @@
   <script>
     const STAR = '<svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 2.5-7.5L3 9h7z"/></svg>';
     const PAGE = 25;
-    let DATA = { banbif: [], agora: [] };
-    let current = 'all';
+    const MAX_RSS_PAGES = 10;        // Apple limita el RSS a ~10 páginas (~500 reseñas)
+    const content = document.getElementById('content');
+
+    let REVIEWS = [];   // dataset actual
+    let APP = null;     // app seleccionada
     let shown = PAGE;
+    let view = { q: '', rf: 'all' };
 
-    function uname(u) {
-      if (!u) return 'Anónimo';
-      if (typeof u === 'object') return u.label || 'Anónimo';
-      return u;
-    }
-    function parseDate(s) {
-      if (!s) return null;
-      const d = new Date(String(s).replace(' ', 'T'));
-      return isNaN(d) ? null : d;
-    }
-    function fmtDate(d) {
-      if (!d) return 's/f';
-      return d.toLocaleDateString('es-PE', { year: 'numeric', month: 'short', day: 'numeric' });
-    }
-    function esc(s) {
-      return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-    }
-    function starStr(r) {
-      r = Math.round(Number(r) || 0);
-      let s = '';
-      for (let i = 1; i <= 5; i++) s += i <= r ? '★' : '<span class="off">★</span>';
-      return s;
+    // ---------- utilidades ----------
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    function parseDate(s){ if(!s) return null; const d=new Date(String(s).replace(' ','T')); return isNaN(d)?null:d; }
+    function fmtDate(d){ return d ? d.toLocaleDateString('es-PE',{year:'numeric',month:'short',day:'numeric'}) : 's/f'; }
+    function starStr(r){ r=Math.round(Number(r)||0); let s=''; for(let i=1;i<=5;i++) s+= i<=r?'★':'<span class="off">★</span>'; return s; }
+    function get(o,k,sub='label',def=null){ return (o&&o[k]&&o[k][sub]!==undefined)?o[k][sub]:def; }
+
+    // ---------- 1) BÚSQUEDA DE APPS ----------
+    async function searchApps(term, cc){
+      const url = `https://itunes.apple.com/search?term=${encodeURIComponent(term)}&country=${cc}&entity=software&limit=24`;
+      const r = await fetch(url);
+      if(!r.ok) throw new Error('Búsqueda falló ('+r.status+')');
+      const j = await r.json();
+      return j.results || [];
     }
 
-    function currentRows() {
-      let rows = current === 'all' ? [...DATA.banbif, ...DATA.agora] : DATA[current];
-      return rows.map(r => ({ ...r, _date: parseDate(r.review_date) }))
-                 .sort((a, b) => (b._date?.getTime() || 0) - (a._date?.getTime() || 0));
+    function renderResults(list, cc){
+      if(!list.length){ content.innerHTML = '<div class="hint">Sin resultados. Prueba otro nombre o cambia la tienda (país).</div>'; return; }
+      content.innerHTML = `
+        <div class="panel">
+          <h2>Resultados <span style="color:var(--ink-soft);font-weight:600">(${list.length}) — elige una app</span></h2>
+          <div class="results">
+            ${list.map(a => `
+              <button class="app-card" data-id="${a.trackId}" data-cc="${cc}" data-name="${esc(a.trackName)}" data-art="${esc(a.artworkUrl100||'')}" data-dev="${esc(a.sellerName||'')}" data-store="${a.averageUserRating||0}" data-cnt="${a.userRatingCount||0}">
+                <img src="${esc(a.artworkUrl100||'')}" alt="" loading="lazy" />
+                <div>
+                  <div class="ac-name">${esc(a.trackName)}</div>
+                  <div class="ac-dev">${esc(a.sellerName||'')}</div>
+                  <div class="ac-meta">${a.averageUserRating?`<b>${a.averageUserRating.toFixed(1)}★</b> · ${(a.userRatingCount||0).toLocaleString('es-PE')} valoraciones`:'Sin valoraciones'} · ${esc(a.primaryGenreName||'')}</div>
+                </div>
+              </button>`).join('')}
+          </div>
+        </div>`;
     }
 
-    function filtered(rows) {
-      const q = document.getElementById('q')?.value.trim().toLowerCase();
-      const rf = document.getElementById('rf')?.value;
-      return rows.filter(r => {
-        if (rf && rf !== 'all' && Math.round(Number(r.rating)) !== Number(rf)) return false;
-        if (q) {
-          const hay = (esc(r.review_title) + ' ' + esc(r.review_text) + ' ' + uname(r.user_name)).toLowerCase();
-          if (!hay.includes(q)) return false;
+    // ---------- 2) SCRAPING DE RESEÑAS (RSS) ----------
+    function normalize(entry, app){
+      return {
+        source: 'Apple App Store',
+        app_name: app.name, app_id: String(app.id),
+        review_id: get(entry,'id') || (get(entry,'id','label')) || crypto.randomUUID(),
+        review_title: get(entry,'title'),
+        review_text: get(entry,'content'),
+        rating: Number(get(entry,'im:rating')) || null,
+        user_name: get(entry,'author','label') || (entry.author && entry.author.name && entry.author.name.label) || 'Anónimo',
+        review_date: get(entry,'updated'),
+        app_version: get(entry,'im:version'),
+        developer_response: null,
+        country: app.cc,
+        extracted_at: new Date().toISOString(),
+      };
+    }
+
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    // Trae una página con reintentos ante rate-limit (429) u otros errores transitorios.
+    async function fetchPage(url){
+      for(let attempt=0; attempt<3; attempt++){
+        try {
+          const r = await fetch(url);
+          if(r.ok) return await r.json();
+          if(r.status===429 || r.status>=500){ await sleep(800*(attempt+1)); continue; }
+          return null; // 4xx no recuperable (p.ej. 404)
+        } catch(e){ await sleep(800*(attempt+1)); }
+      }
+      return undefined; // falló tras los reintentos (probable rate-limit)
+    }
+
+    async function scrapeReviews(app, onProgress){
+      const all = []; const seen = new Set();
+      for(let p=1; p<=MAX_RSS_PAGES; p++){
+        onProgress(`Descargando página ${p} de ${MAX_RSS_PAGES}… (${all.length} reseñas)`);
+        const url = `https://itunes.apple.com/${app.cc}/rss/customerreviews/page=${p}/id=${app.id}/sortby=mostrecent/json`;
+        const j = await fetchPage(url);
+        if(j === undefined){ // rate-limit / red: si es la pág.1 avisamos, si no, cortamos con lo que haya
+          if(p===1) throw new Error('Apple limitó temporalmente las solicitudes (rate-limit). Espera unos segundos y vuelve a intentar.');
+          break;
         }
+        if(j === null) break; // app/feed inexistente
+        let entries = (j.feed && j.feed.entry) || [];
+        if(!Array.isArray(entries)) entries = entries ? [entries] : [];
+        const reviews = entries.filter(e => e && !e['im:name']); // descarta metadata de la app
+        if(reviews.length === 0) break;
+        let added = 0;
+        for(const e of reviews){
+          const n = normalize(e, app);
+          const id = String(n.review_id);
+          if(seen.has(id)) continue;
+          seen.add(id); all.push(n); added++;
+        }
+        if(added === 0) break; // sólo duplicados -> fin del feed
+        await sleep(220);      // respiro entre páginas para no gatillar rate-limit
+      }
+      all.sort((a,b)=>(parseDate(b.review_date)?.getTime()||0)-(parseDate(a.review_date)?.getTime()||0));
+      return all;
+    }
+
+    async function selectApp(app){
+      APP = app; REVIEWS = []; shown = PAGE; view = { q:'', rf:'all' };
+      content.innerHTML = `<div class="loading"><div class="spinner"></div><div class="pmsg" id="pmsg">Iniciando…</div></div>`;
+      const pmsg = document.getElementById('pmsg');
+      try {
+        REVIEWS = await scrapeReviews(app, m => { if(pmsg) pmsg.textContent = m; });
+        if(!REVIEWS.length){
+          content.innerHTML = `<div class="panel"><div class="err">No se encontraron reseñas para <b>${esc(app.name)}</b> en la tienda <b>${app.cc.toUpperCase()}</b>. Puede que la app no tenga reseñas en ese país o que Apple no las exponga vía RSS. Prueba otra tienda.</div></div>`;
+          return;
+        }
+        renderDashboard();
+      } catch(e){
+        content.innerHTML = `<div class="panel"><div class="err">Error al extraer reseñas: ${esc(e.message)}</div></div>`;
+      }
+    }
+
+    // ---------- 3) DASHBOARD ----------
+    function downloadFile(name, text, type){
+      const blob = new Blob([text], {type}); const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = name; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url), 1500);
+    }
+    function toCSV(rows){
+      const cols = ['source','app_name','app_id','review_id','review_title','review_text','rating','user_name','review_date','app_version','developer_response','country','extracted_at'];
+      const q = v => '"'+String(v==null?'':v).replace(/"/g,'""')+'"';
+      return '﻿'+cols.join(',')+'\n'+rows.map(r=>cols.map(c=>q(r[c])).join(',')).join('\n');
+    }
+    function baseName(){ return 'reviews_'+String(APP.name).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'_'+APP.cc; }
+
+    function filtered(){
+      const q = view.q.trim().toLowerCase(), rf = view.rf;
+      return REVIEWS.filter(r => {
+        if(rf!=='all' && Math.round(Number(r.rating))!==Number(rf)) return false;
+        if(q){ const hay=((r.review_title||'')+' '+(r.review_text||'')+' '+(r.user_name||'')).toLowerCase(); if(!hay.includes(q)) return false; }
         return true;
       });
     }
 
-    function render() {
-      const rows = currentRows();
-      const total = rows.length;
-      const rated = rows.filter(r => Number(r.rating) > 0);
-      const avg = rated.length ? rated.reduce((s, r) => s + Number(r.rating), 0) / rated.length : 0;
-      const dist = [0,0,0,0,0];
-      rated.forEach(r => { const n = Math.round(Number(r.rating)); if (n>=1&&n<=5) dist[n-1]++; });
-      const maxd = Math.max(...dist, 1);
-      const promoters = rated.filter(r => Number(r.rating) >= 4).length;
-      const detractors = rated.filter(r => Number(r.rating) <= 2).length;
-      const dates = rows.map(r => r._date).filter(Boolean).sort((a,b)=>a-b);
-
-      const kpis = `
-        <div class="kpis">
-          <div class="kpi"><div class="label">Reseñas</div><div class="value">${total}</div><div class="sub">total recolectadas</div></div>
-          <div class="kpi"><div class="label">Rating promedio</div><div class="value">${avg.toFixed(2)} <small>/ 5</small></div><div class="sub">${starStr(avg)}</div></div>
-          <div class="kpi"><div class="label">Promotores 4–5★</div><div class="value">${total?Math.round(promoters/rated.length*100):0}<small>%</small></div><div class="sub">${promoters} reseñas</div></div>
-          <div class="kpi"><div class="label">Detractores 1–2★</div><div class="value">${total?Math.round(detractors/rated.length*100):0}<small>%</small></div><div class="sub">${detractors} reseñas</div></div>
-          <div class="kpi"><div class="label">Periodo</div><div class="value" style="font-size:1.05rem;line-height:1.4">${dates.length?fmtDate(dates[0]):'—'}<br>→ ${dates.length?fmtDate(dates[dates.length-1]):'—'}</div></div>
-        </div>`;
-
-      const distHtml = `
-        <div class="panel">
-          <h2>Distribución de calificaciones</h2>
-          ${[5,4,3,2,1].map(n => {
-            const c = dist[n-1];
-            return `<div class="dist-row">
-              <span class="star-lbl">${n} ${STAR}</span>
-              <div class="bar-track"><div class="bar-fill" style="width:${c/maxd*100}%"></div></div>
-              <span class="count">${c} · ${rated.length?Math.round(c/rated.length*100):0}%</span>
-            </div>`;
-          }).join('')}
-        </div>`;
-
-      const list = filtered(rows);
-      const slice = list.slice(0, shown);
-      const reviewsHtml = `
-        <div class="panel">
-          <h2>Comentarios <span style="color:var(--ink-soft);font-weight:600">(${list.length})</span></h2>
-          <div class="controls">
-            <input id="q" type="search" placeholder="Buscar en comentarios, títulos o usuarios…" />
-            <select id="rf">
-              <option value="all">Todas las estrellas</option>
-              <option value="5">5 ★</option><option value="4">4 ★</option><option value="3">3 ★</option><option value="2">2 ★</option><option value="1">1 ★</option>
-            </select>
-          </div>
-          <div id="reviews">
-            ${slice.length ? slice.map(r => `
-              <div class="review">
-                <div class="review-head">
-                  <span class="stars">${starStr(r.rating)}</span>
-                  ${r.review_title ? `<span class="review-title">${esc(r.review_title)}</span>` : ''}
-                  <span class="pill ${r.app_name && r.app_name.includes('banbif') ? 'banbif':'agora'}">${r.app_name && r.app_name.includes('banbif') ? 'BanBif':'Agora'}</span>
-                </div>
-                ${r.review_text ? `<div class="review-text">${esc(r.review_text)}</div>` : ''}
-                <div class="review-meta">${esc(uname(r.user_name))} · ${fmtDate(r._date)}</div>
-                ${r.developer_response ? `<div class="dev-resp"><b>Respuesta del desarrollador:</b> ${esc(r.developer_response)}</div>` : ''}
-              </div>`).join('') : '<div class="empty">Sin reseñas que coincidan con el filtro.</div>'}
-          </div>
-          ${list.length > shown ? `<button class="more" id="more">Ver más (${list.length - shown} restantes)</button>` : ''}
-        </div>`;
-
-      document.getElementById('content').innerHTML = kpis + distHtml + reviewsHtml;
-
-      const q = document.getElementById('q'), rf = document.getElementById('rf'), more = document.getElementById('more');
-      if (q) { q.value = render._q || ''; q.oninput = () => { render._q = q.value; shown = PAGE; renderList(); }; }
-      if (rf) { rf.value = render._rf || 'all'; rf.onchange = () => { render._rf = rf.value; shown = PAGE; renderList(); }; }
-      if (more) more.onclick = () => { shown += PAGE; renderList(); };
+    function reviewHTML(r){
+      const d = parseDate(r.review_date);
+      return `<div class="review">
+        <div class="review-head">
+          <span class="stars">${starStr(r.rating)}</span>
+          ${r.review_title?`<span class="review-title">${esc(r.review_title)}</span>`:''}
+        </div>
+        ${r.review_text?`<div class="review-text">${esc(r.review_text)}</div>`:''}
+        <div class="review-meta">${esc(r.user_name)} · ${fmtDate(d)}${r.app_version?' · v'+esc(r.app_version):''}</div>
+      </div>`;
     }
 
-    // lightweight re-render of just the reviews list (keeps focus on search box)
-    function renderList() {
-      const rows = currentRows();
-      const list = filtered(rows);
-      const slice = list.slice(0, shown);
-      const box = document.getElementById('reviews');
+    function renderList(){
+      const list = filtered(); const slice = list.slice(0, shown);
+      const box = document.getElementById('reviews'); if(!box) return;
       const panel = box.closest('.panel');
       panel.querySelector('h2').innerHTML = `Comentarios <span style="color:var(--ink-soft);font-weight:600">(${list.length})</span>`;
-      box.innerHTML = slice.length ? slice.map(r => `
-        <div class="review">
-          <div class="review-head">
-            <span class="stars">${starStr(r.rating)}</span>
-            ${r.review_title ? `<span class="review-title">${esc(r.review_title)}</span>` : ''}
-            <span class="pill ${r.app_name && r.app_name.includes('banbif') ? 'banbif':'agora'}">${r.app_name && r.app_name.includes('banbif') ? 'BanBif':'Agora'}</span>
-          </div>
-          ${r.review_text ? `<div class="review-text">${esc(r.review_text)}</div>` : ''}
-          <div class="review-meta">${esc(uname(r.user_name))} · ${fmtDate(r._date)}</div>
-          ${r.developer_response ? `<div class="dev-resp"><b>Respuesta del desarrollador:</b> ${esc(r.developer_response)}</div>` : ''}
-        </div>`).join('') : '<div class="empty">Sin reseñas que coincidan con el filtro.</div>';
-      const oldMore = document.getElementById('more');
-      if (oldMore) oldMore.remove();
-      if (list.length > shown) {
-        const btn = document.createElement('button');
-        btn.className = 'more'; btn.id = 'more';
-        btn.textContent = `Ver más (${list.length - shown} restantes)`;
-        btn.onclick = () => { shown += PAGE; renderList(); };
-        panel.appendChild(btn);
+      box.innerHTML = slice.length ? slice.map(reviewHTML).join('') : '<div class="empty">Sin reseñas que coincidan con el filtro.</div>';
+      const old = document.getElementById('more'); if(old) old.remove();
+      if(list.length > shown){
+        const b = document.createElement('button'); b.className='more'; b.id='more';
+        b.textContent = `Ver más (${list.length-shown} restantes)`;
+        b.onclick = () => { shown += PAGE; renderList(); };
+        panel.appendChild(b);
       }
     }
 
-    document.getElementById('seg').addEventListener('click', e => {
-      const b = e.target.closest('button'); if (!b) return;
-      current = b.dataset.app; shown = PAGE; render._q = ''; render._rf = 'all';
-      document.querySelectorAll('#seg button').forEach(x => x.classList.toggle('active', x === b));
-      render();
+    function renderDashboard(){
+      const rated = REVIEWS.filter(r => Number(r.rating)>0);
+      const avg = rated.length ? rated.reduce((s,r)=>s+Number(r.rating),0)/rated.length : 0;
+      const dist=[0,0,0,0,0]; rated.forEach(r=>{const n=Math.round(Number(r.rating)); if(n>=1&&n<=5)dist[n-1]++;});
+      const maxd = Math.max(...dist,1);
+      const promoters = rated.filter(r=>Number(r.rating)>=4).length;
+      const detractors = rated.filter(r=>Number(r.rating)<=2).length;
+      const dates = REVIEWS.map(r=>parseDate(r.review_date)).filter(Boolean).sort((a,b)=>a-b);
+
+      content.innerHTML = `
+        <div class="app-head">
+          ${APP.art?`<img src="${esc(APP.art)}" alt="" />`:''}
+          <div>
+            <div class="ah-name">${esc(APP.name)}</div>
+            <div class="ah-dev">${esc(APP.dev||'')} · tienda ${APP.cc.toUpperCase()}${APP.storeRating?` · ${Number(APP.storeRating).toFixed(1)}★ globales`:''}</div>
+          </div>
+          <div class="ah-actions">
+            <button class="btn-sm" id="dl-csv">⬇ CSV</button>
+            <button class="btn-sm" id="dl-json">⬇ JSON</button>
+            <button class="btn-sm" id="new">↺ Nueva búsqueda</button>
+          </div>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi"><div class="label">Reseñas (muestra)</div><div class="value">${REVIEWS.length}</div><div class="sub">más recientes</div></div>
+          <div class="kpi"><div class="label">Promedio muestra</div><div class="value">${avg.toFixed(2)} <small>/ 5</small></div><div class="sub">${starStr(avg)}</div></div>
+          <div class="kpi"><div class="label">Promotores 4–5★</div><div class="value">${rated.length?Math.round(promoters/rated.length*100):0}<small>%</small></div><div class="sub">${promoters} reseñas</div></div>
+          <div class="kpi"><div class="label">Detractores 1–2★</div><div class="value">${rated.length?Math.round(detractors/rated.length*100):0}<small>%</small></div><div class="sub">${detractors} reseñas</div></div>
+          <div class="kpi"><div class="label">Periodo</div><div class="value" style="font-size:1.05rem;line-height:1.4">${dates.length?fmtDate(dates[0]):'—'}<br>→ ${dates.length?fmtDate(dates[dates.length-1]):'—'}</div></div>
+        </div>
+
+        <div class="panel">
+          <h2>Distribución de calificaciones</h2>
+          ${[5,4,3,2,1].map(n=>{const c=dist[n-1];return `<div class="dist-row"><span class="star-lbl">${n} ${STAR}</span><div class="bar-track"><div class="bar-fill" style="width:${c/maxd*100}%"></div></div><span class="count">${c} · ${rated.length?Math.round(c/rated.length*100):0}%</span></div>`;}).join('')}
+        </div>
+
+        <div class="panel">
+          <h2>Comentarios</h2>
+          <div class="controls">
+            <input id="q" type="search" placeholder="Buscar en comentarios, títulos o usuarios…" />
+            <select id="rf"><option value="all">Todas las estrellas</option><option value="5">5 ★</option><option value="4">4 ★</option><option value="3">3 ★</option><option value="2">2 ★</option><option value="1">1 ★</option></select>
+          </div>
+          <div id="reviews"></div>
+        </div>`;
+
+      document.getElementById('dl-csv').onclick = () => downloadFile(baseName()+'.csv', toCSV(REVIEWS), 'text/csv;charset=utf-8');
+      document.getElementById('dl-json').onclick = () => downloadFile(baseName()+'.json', JSON.stringify(REVIEWS,null,2), 'application/json');
+      document.getElementById('new').onclick = () => { content.innerHTML='<div class="hint">Escribe una empresa y pulsa <b>Buscar</b>, o usa una prueba rápida.</div>'; document.getElementById('term').focus(); };
+      const q=document.getElementById('q'), rf=document.getElementById('rf');
+      q.oninput = () => { view.q=q.value; shown=PAGE; renderList(); };
+      rf.onchange = () => { view.rf=rf.value; shown=PAGE; renderList(); };
+      renderList();
+    }
+
+    // ---------- eventos ----------
+    async function doSearch(){
+      const term = document.getElementById('term').value.trim();
+      const cc = document.getElementById('country').value;
+      if(!term){ document.getElementById('term').focus(); return; }
+      content.innerHTML = `<div class="loading"><div class="spinner"></div><div class="pmsg">Buscando apps…</div></div>`;
+      try { const list = await searchApps(term, cc); renderResults(list, cc); }
+      catch(e){ content.innerHTML = `<div class="panel"><div class="err">${esc(e.message)}</div></div>`; }
+    }
+
+    document.getElementById('go').onclick = doSearch;
+    document.getElementById('term').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+
+    // clic en tarjeta de resultado
+    content.addEventListener('click', e => {
+      const card = e.target.closest('.app-card'); if(!card) return;
+      selectApp({ id:card.dataset.id, cc:card.dataset.cc, name:card.dataset.name, art:card.dataset.art, dev:card.dataset.dev, storeRating:card.dataset.store });
     });
 
-    async function load() {
-      try {
-        const [banbif, agora] = await Promise.all([
-          fetch('data/banbif.json').then(r => r.json()),
-          fetch('data/agora.json').then(r => r.json())
-        ]);
-        DATA.banbif = banbif; DATA.agora = agora;
-        render();
-      } catch (err) {
-        document.getElementById('content').innerHTML =
-          '<div class="empty">No se pudieron cargar los datos. Si abriste el archivo localmente, sírvelo con un servidor (p. ej. <code>python -m http.server</code>) o ábrelo desde GitHub Pages.</div>';
-        console.error(err);
-      }
-    }
-    load();
+    // chips de prueba rápida
+    document.querySelectorAll('.chip').forEach(c => c.onclick = () => {
+      document.getElementById('country').value = c.dataset.cc;
+      selectApp({ id:c.dataset.id, cc:c.dataset.cc, name:c.dataset.name, art:'', dev:'', storeRating:0 });
+    });
   </script>
 </body>
 </html>

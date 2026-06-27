@@ -1,25 +1,24 @@
 # App Reviews Scraper · MBC
 
-Herramienta para **extraer y explorar reseñas de la Apple App Store** de apps peruanas. Forma parte del [Hub de Herramientas de Minsait Business Consulting Perú](https://nelson2206.github.io/mbc-hub/).
+Herramienta para **extraer y explorar reseñas de la Apple App Store de cualquier empresa o app**. Forma parte del [Hub de Herramientas de Minsait Business Consulting Perú](https://nelson2206.github.io/mbc-hub/).
 
-🔗 **Explorador web (demo en vivo):** https://nelson2206.github.io/app-reviews-scraper/
-
-Apps configuradas por defecto:
-
-| App | App ID | País |
-|-----|--------|------|
-| Nueva BanBif App | `6736497481` | pe |
-| Agora – Ahorra y Disfruta | `1478814349` | pe |
+🔗 **App web (en vivo):** https://nelson2206.github.io/app-reviews-scraper/
 
 ## ¿Qué hace?
 
-- Descarga reseñas con una **estrategia dual y tolerante a fallos**:
-  1. `app-store-scraper` (principal).
-  2. *Fallback* vía el feed RSS público de iTunes (`requests`) si la primera falla.
-- **Normaliza** cada reseña a un esquema único de 12 campos.
-- **Deduplica** por `review_id`, ordena por fecha y limpia el texto.
-- **Exporta** a `CSV` (UTF-8) y `JSON` con timestamp, e imprime un resumen (total, rating promedio, rango de fechas).
-- Incluye un **explorador web** (`index.html`) que lee los datos recolectados y muestra KPIs, distribución de calificaciones, búsqueda y filtros — sin dependencias ni backend.
+Tiene **dos modos** que comparten el mismo esquema de datos:
+
+### 1. App web dinámica (sin instalar nada)
+- **Buscas** cualquier empresa o app y eliges la tienda (país): Perú, México, Chile, EE.UU., España, etc.
+- **Eliges** una app de los resultados (con ícono, desarrollador y rating global).
+- El **scraping ocurre en vivo en tu navegador** contra la API pública de Apple (búsqueda + feed RSS de reseñas) — *no necesita backend ni servidor*.
+- Muestra **KPIs** (promedio, % promotores/detractores, periodo), **distribución de estrellas**, búsqueda y filtros, y permite **descargar CSV/JSON**.
+- Incluye reintentos con *backoff* para tolerar el *rate-limit* de Apple. Límite: ~500 reseñas más recientes por app (paginación del RSS).
+
+### 2. Script Python (CLI, para extracción masiva o automatizable)
+- Descarga reseñas con **estrategia dual y tolerante a fallos**: `app-store-scraper` (principal) y *fallback* vía RSS (`requests`).
+- **Normaliza**, **deduplica** por `review_id`, ordena por fecha y limpia el texto.
+- **Exporta** a `CSV` (UTF-8) y `JSON` con timestamp, e imprime un resumen.
 
 ## Uso del scraper (CLI)
 
@@ -57,17 +56,17 @@ python app_store_reviews.py \
 ## Estructura del repo
 
 ```
+index.html             # app web dinámica (GitHub Pages) — busca y scrapea en vivo
 app_store_reviews.py   # script de extracción (CLI)
-index.html             # explorador web (GitHub Pages)
-data/                  # datasets que alimentan el explorador (banbif.json, agora.json)
+data/                  # datasets de ejemplo (banbif.json, agora.json)
 samples/               # salidas crudas (CSV/JSON) de ejecuciones previas
 requirements.txt
 ```
 
 ## Notas
 
-- El explorador se sirve estáticamente; para verlo localmente usa `python -m http.server` y abre `http://localhost:8000` (abrir el HTML con `file://` bloquea la carga de los JSON por CORS).
-- Datos con fines analíticos internos (voz del cliente). Fuente: Apple App Store, tienda de Perú.
+- La app web no usa backend: el scraping corre en el navegador del usuario contra los endpoints públicos de Apple (`itunes.apple.com/search` y el feed RSS `customerreviews`).
+- Datos con fines analíticos internos (voz del cliente). Fuente: Apple App Store (datos públicos).
 
 ---
 *Basado en el script original de [20222515/Script-scrapping-coeia](https://github.com/20222515/Script-scrapping-coeia).*
