@@ -3,41 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reseñas App Store · MBC</title>
-  <meta name="description" content="Extrae y explora reseñas de la Apple App Store de cualquier empresa o app: busca, elige y obtén ratings, distribución y comentarios en vivo. Minsait Business Consulting Perú." />
+  <title>Reseñas de Apps · MBC</title>
+  <meta name="description" content="Extrae y explora reseñas de App Store y Google Play de cualquier empresa o app: ratings, distribución, análisis de temas y comentarios. Minsait Business Consulting Perú." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --cream: #f5ecdc;
-      --cream-2: #fffaf0;
-      --ink: #2a0e1a;
-      --ink-soft: #5a2838;
-      --plum: #480e2a;
-      --rose: #ff0054;
-      --rose-soft: #ffb2b8;
-      --teal: #69dbab;
-      --amber: #f0a818;
-      --sky: #41B9FF;
-      --border: rgba(72, 14, 42, 0.16);
-      --shadow: 0 10px 30px -12px rgba(72, 14, 42, 0.28);
+      --cream: #f5ecdc; --cream-2: #fffaf0; --ink: #2a0e1a; --ink-soft: #5a2838;
+      --plum: #480e2a; --rose: #ff0054; --rose-soft: #ffb2b8; --teal: #69dbab;
+      --amber: #f0a818; --sky: #41B9FF; --green: #2a8f6a; --red: #d11149;
+      --border: rgba(72, 14, 42, 0.16); --shadow: 0 10px 30px -12px rgba(72, 14, 42, 0.28);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background-color: var(--cream);
-      color: var(--ink);
-      min-height: 100dvh;
-      position: relative;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--cream); color: var(--ink); min-height: 100dvh; position: relative; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
     body::before, body::after { content: ""; position: fixed; border-radius: 9999px; filter: blur(60px); z-index: 0; pointer-events: none; }
     body::before { width: 520px; height: 520px; top: -160px; right: -120px; background: radial-gradient(circle, rgba(255,0,84,0.12), transparent 70%); }
     body::after  { width: 460px; height: 460px; bottom: -180px; left: -120px; background: radial-gradient(circle, rgba(72,14,42,0.16), transparent 70%); }
-
     .wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
 
     .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; gap: 12px; flex-wrap: wrap; }
@@ -50,10 +33,12 @@
     header.hero { margin-bottom: 26px; }
     h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 12px; }
     h1 .accent { color: var(--rose); }
-    .subtitle { font-size: clamp(1rem, 2vw, 1.1rem); color: var(--ink-soft); max-width: 660px; }
+    .subtitle { font-size: clamp(1rem, 2vw, 1.1rem); color: var(--ink-soft); max-width: 680px; }
 
-    /* Search panel */
     .search-panel { background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 24px; padding: 22px; margin-bottom: 24px; }
+    .store-toggle { display: inline-flex; background: var(--cream); border: 1px solid var(--border); border-radius: 9999px; padding: 5px; gap: 4px; margin-bottom: 14px; }
+    .store-toggle button { font-family: inherit; font-size: 0.85rem; font-weight: 700; color: var(--ink-soft); background: transparent; border: none; cursor: pointer; padding: 9px 18px; border-radius: 9999px; transition: all .25s; display: inline-flex; align-items: center; gap: 7px; }
+    .store-toggle button.active { background: linear-gradient(135deg, var(--plum), var(--rose)); color: #fff; box-shadow: 0 8px 18px -8px rgba(72,14,42,.5); }
     .search-row { display: flex; gap: 10px; flex-wrap: wrap; }
     .search-row select, .search-row input { font-family: inherit; font-size: 0.95rem; color: var(--ink); background: var(--cream); border: 1px solid var(--border); border-radius: 14px; padding: 13px 16px; }
     .search-row select { flex: 0 0 auto; cursor: pointer; }
@@ -61,29 +46,37 @@
     .search-row input:focus, .search-row select:focus { outline: none; border-color: rgba(255,0,84,.5); }
     .btn { font-family: inherit; font-size: 0.95rem; font-weight: 800; color: #fff; background: linear-gradient(135deg, var(--plum), var(--rose)); border: none; border-radius: 14px; padding: 13px 26px; cursor: pointer; transition: transform .2s, box-shadow .2s; box-shadow: 0 8px 18px -8px rgba(72,14,42,.5); }
     .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 26px -10px rgba(72,14,42,.55); }
-    .btn:disabled { opacity: .55; cursor: default; transform: none; }
     .quick { margin-top: 14px; font-size: 0.82rem; color: var(--ink-soft); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .chip { font-family: inherit; font-size: 0.8rem; font-weight: 700; color: var(--plum); background: var(--cream); border: 1px solid var(--border); border-radius: 9999px; padding: 6px 14px; cursor: pointer; transition: all .2s; }
     .chip:hover { border-color: rgba(255,0,84,.45); color: var(--rose); }
+    .cfg-link { margin-left: auto; font-size: 0.78rem; font-weight: 700; color: var(--ink-soft); background: none; border: none; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .cfg-link:hover { color: var(--rose); }
+    .cfg-row { display: none; margin-top: 14px; gap: 8px; align-items: center; flex-wrap: wrap; background: var(--cream); border: 1px dashed var(--border); border-radius: 14px; padding: 12px 14px; }
+    .cfg-row.show { display: flex; }
+    .cfg-row input { flex: 1; min-width: 220px; font-family: inherit; font-size: 0.88rem; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--cream-2); color: var(--ink); }
+    .cfg-row .ok { color: var(--green); font-weight: 800; font-size: 0.8rem; }
+    .cfg-row .muted { font-size: 0.76rem; color: var(--ink-soft); flex-basis: 100%; }
+    .cfg-row .muted a { color: var(--rose); font-weight: 700; }
 
-    /* App result cards */
     .results { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
     .app-card { display: flex; gap: 14px; align-items: center; text-align: left; background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 18px; padding: 16px; cursor: pointer; transition: transform .25s, border-color .25s; font-family: inherit; }
     .app-card:hover { transform: translateY(-3px); border-color: rgba(255,0,84,.4); }
-    .app-card img { width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0; background: rgba(72,14,42,.06); }
+    .app-card img { width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0; background: rgba(72,14,42,.06); object-fit: cover; }
     .app-card .ac-name { font-weight: 800; font-size: 0.95rem; line-height: 1.2; }
     .app-card .ac-dev { font-size: 0.78rem; color: var(--ink-soft); margin-top: 3px; }
     .app-card .ac-meta { font-size: 0.74rem; color: var(--ink-soft); margin-top: 5px; }
     .app-card .ac-meta b { color: var(--plum); }
 
-    /* App header (selected) */
     .app-head { display: flex; gap: 16px; align-items: center; background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 20px; padding: 18px 20px; margin-bottom: 22px; flex-wrap: wrap; }
-    .app-head img { width: 64px; height: 64px; border-radius: 16px; }
+    .app-head img { width: 64px; height: 64px; border-radius: 16px; object-fit: cover; }
     .app-head .ah-name { font-weight: 900; font-size: 1.3rem; letter-spacing: -.01em; }
     .app-head .ah-dev { font-size: 0.85rem; color: var(--ink-soft); }
     .app-head .ah-actions { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
     .btn-sm { font-family: inherit; font-size: 0.78rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--plum); background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 9px 14px; cursor: pointer; transition: all .2s; }
     .btn-sm:hover { border-color: rgba(255,0,84,.45); color: var(--rose); }
+    .store-pill { font-size: 9.5px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 4px 9px; border-radius: 9999px; color: #fff; }
+    .store-pill.apple { background: linear-gradient(135deg, #6a5560, #2a0e1a); }
+    .store-pill.google { background: linear-gradient(135deg, var(--sky), var(--green)); }
 
     .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 24px; }
     .kpi { background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 20px; padding: 20px 22px; }
@@ -94,6 +87,7 @@
 
     .panel { background: var(--cream-2); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 24px; padding: 26px; margin-bottom: 24px; }
     .panel h2 { font-size: 1.05rem; font-weight: 800; margin-bottom: 18px; }
+    .panel h2 .hint-sm { font-weight: 600; color: var(--ink-soft); font-size: .85rem; }
 
     .dist-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
     .dist-row .star-lbl { width: 42px; font-size: 0.82rem; font-weight: 800; color: var(--ink-soft); display: flex; align-items: center; gap: 3px; }
@@ -101,6 +95,27 @@
     .bar-track { flex: 1; height: 14px; background: rgba(72,14,42,.07); border-radius: 9999px; overflow: hidden; }
     .bar-fill { height: 100%; border-radius: 9999px; background: linear-gradient(90deg, var(--rose), var(--rose-soft)); transition: width .6s cubic-bezier(.16,1,.3,1); }
     .dist-row .count { width: 92px; text-align: right; font-size: 0.8rem; font-weight: 700; color: var(--ink-soft); }
+
+    /* Topics */
+    .topic-summary { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+    .ts-card { flex: 1; min-width: 220px; border-radius: 16px; padding: 14px 16px; border: 1px solid var(--border); }
+    .ts-card.pain { background: rgba(209,17,73,.06); border-color: rgba(209,17,73,.25); }
+    .ts-card.win  { background: rgba(42,143,106,.08); border-color: rgba(42,143,106,.28); }
+    .ts-card .ts-lbl { font-size: 0.7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 5px; }
+    .ts-card .ts-val { font-size: 1.05rem; font-weight: 800; }
+    .ts-card .ts-sub { font-size: 0.76rem; color: var(--ink-soft); margin-top: 3px; }
+    .topic { display: flex; align-items: center; gap: 12px; padding: 9px 10px; border-radius: 12px; cursor: pointer; transition: background .2s; }
+    .topic:hover { background: rgba(72,14,42,.05); }
+    .topic.active { background: rgba(255,0,84,.08); }
+    .topic .t-ico { font-size: 1.1rem; width: 26px; text-align: center; }
+    .topic .t-name { width: 190px; font-size: 0.86rem; font-weight: 700; }
+    .topic .t-track { flex: 1; height: 12px; background: rgba(72,14,42,.07); border-radius: 9999px; overflow: hidden; }
+    .topic .t-fill { height: 100%; border-radius: 9999px; }
+    .topic .t-cnt { width: 70px; text-align: right; font-size: 0.8rem; font-weight: 700; color: var(--ink-soft); }
+    .topic .t-rate { width: 58px; text-align: right; font-size: 0.82rem; font-weight: 800; }
+    .rate-bad { color: var(--red); } .rate-mid { color: var(--amber); } .rate-good { color: var(--green); }
+    .topic-reset { margin-top: 10px; font-size: 0.78rem; font-weight: 700; color: var(--rose); background: none; border: none; cursor: pointer; display: none; }
+    .topic-reset.show { display: inline; }
 
     .controls { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
     .controls input, .controls select { font-family: inherit; font-size: 0.88rem; color: var(--ink); background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 11px 14px; }
@@ -115,17 +130,19 @@
     .review-title { font-weight: 800; font-size: 0.98rem; }
     .review-text { font-size: 0.9rem; line-height: 1.55; color: var(--ink-soft); margin-bottom: 6px; }
     .review-meta { font-size: 0.74rem; color: var(--ink-soft); opacity: .85; }
+    .dev-resp { margin-top: 8px; padding: 10px 14px; background: rgba(72,14,42,.05); border-left: 3px solid var(--rose); border-radius: 8px; font-size: 0.82rem; color: var(--ink-soft); }
+    .dev-resp b { color: var(--plum); }
     .empty { text-align: center; color: var(--ink-soft); padding: 30px; font-size: 0.9rem; }
     .more { display: block; margin: 18px auto 0; font-family: inherit; font-size: 0.82rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--rose); background: transparent; border: 1px solid rgba(255,0,84,.4); border-radius: 9999px; padding: 11px 24px; cursor: pointer; transition: all .25s; }
     .more:hover { background: rgba(255,0,84,.07); }
 
-    /* loading */
     .loading { text-align: center; padding: 50px 20px; color: var(--ink-soft); }
     .spinner { width: 38px; height: 38px; border: 4px solid rgba(72,14,42,.12); border-top-color: var(--rose); border-radius: 50%; margin: 0 auto 16px; animation: spin .8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .loading .pmsg { font-size: 0.9rem; font-weight: 600; }
     .hint { text-align: center; color: var(--ink-soft); padding: 22px; font-size: 0.88rem; }
-    .err { background: rgba(255,0,84,.06); border: 1px solid rgba(255,0,84,.3); color: var(--ink); border-radius: 16px; padding: 18px; font-size: 0.9rem; }
+    .err { background: rgba(255,0,84,.06); border: 1px solid rgba(255,0,84,.3); color: var(--ink); border-radius: 16px; padding: 18px; font-size: 0.9rem; line-height: 1.5; }
+    .err a { color: var(--rose); font-weight: 700; }
 
     footer { text-align: center; margin-top: 48px; font-size: 0.78rem; color: var(--ink-soft); }
     footer a { color: var(--rose); text-decoration: none; font-weight: 700; }
@@ -135,18 +152,20 @@
 <body>
   <div class="wrap">
     <div class="topbar">
-      <a class="back" href="https://nelson2206.github.io/mbc-hub/">
-        <svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Hub MBC
-      </a>
+      <a class="back" href="https://nelson2206.github.io/mbc-hub/"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Hub MBC</a>
       <span class="brand-badge"><span class="dot"></span> Minsait Business Consulting · Perú</span>
     </div>
 
     <header class="hero">
-      <h1>Reseñas <span class="accent">App Store</span></h1>
-      <p class="subtitle">Busca <b>cualquier empresa o app</b>, elígela y extrae sus reseñas de la Apple App Store en vivo: ratings, distribución de estrellas y comentarios. Sin instalar nada — el scraping corre en tu navegador.</p>
+      <h1>Reseñas de <span class="accent">Apps</span></h1>
+      <p class="subtitle">Busca <b>cualquier empresa o app</b> en <b>App Store</b> o <b>Google Play</b>, extrae sus reseñas y analiza la voz del cliente: ratings, distribución, <b>análisis de temas</b> y comentarios.</p>
     </header>
 
     <div class="search-panel">
+      <div class="store-toggle" id="store">
+        <button data-store="apple" class="active">🍎 App Store</button>
+        <button data-store="google">🤖 Google Play</button>
+      </div>
       <div class="search-row">
         <select id="country" title="Tienda (país)">
           <option value="pe" selected>🇵🇪 Perú</option>
@@ -162,222 +181,241 @@
         <button class="btn" id="go">Buscar</button>
       </div>
       <div class="quick">
-        Pruebas rápidas:
-        <button class="chip" data-id="6736497481" data-cc="pe" data-name="Nueva BanBif App">BanBif</button>
-        <button class="chip" data-id="1478814349" data-cc="pe" data-name="Agora – Ahorra y Disfruta">Agora</button>
-        <button class="chip" data-id="1147249919" data-cc="pe" data-name="Yape">Yape</button>
-        <button class="chip" data-id="777961079" data-cc="pe" data-name="Banca Móvil BCP">BCP</button>
-        <button class="chip" data-id="378649517" data-cc="pe" data-name="Interbank APP">Interbank</button>
+        Pruebas rápidas: <span id="chips"></span>
+        <button class="cfg-link" id="cfg-toggle" style="display:none">⚙ Backend Google Play</button>
+      </div>
+      <div class="cfg-row" id="cfg">
+        <input id="cfg-url" type="url" placeholder="https://app-reviews-api.vercel.app" />
+        <button class="btn-sm" id="cfg-save">Guardar</button>
+        <span class="ok" id="cfg-ok"></span>
+        <span class="muted">Google Play necesita un backend (Apple no). Despliega el repo
+          <a href="https://github.com/nelson2206/app-reviews-api" target="_blank" rel="noopener">app-reviews-api</a>
+          en Vercel (1 clic) y pega aquí la URL. Se guarda en este navegador.</span>
       </div>
     </div>
 
-    <div id="content">
-      <div class="hint">Escribe una empresa y pulsa <b>Buscar</b>, o usa una prueba rápida.</div>
-    </div>
+    <div id="content"><div class="hint">Elige tienda, escribe una empresa y pulsa <b>Buscar</b>, o usa una prueba rápida.</div></div>
 
     <footer>
       Minsait Business Consulting · Perú
-      <span class="sep">·</span> Fuente: Apple App Store (datos públicos)
-      <span class="sep">·</span> <a href="https://github.com/nelson2206/app-reviews-scraper">Código en GitHub</a>
+      <span class="sep">·</span> Fuentes: Apple App Store · Google Play (datos públicos)
+      <span class="sep">·</span> <a href="https://github.com/nelson2206/app-reviews-scraper">Código</a>
     </footer>
   </div>
 
   <script>
     const STAR = '<svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 2.5-7.5L3 9h7z"/></svg>';
-    const PAGE = 25;
-    const MAX_RSS_PAGES = 10;        // Apple limita el RSS a ~10 páginas (~500 reseñas)
+    const PAGE = 25, MAX_RSS_PAGES = 10, GP_MAX = 400;
+    const LANG = { br: 'pt', us: 'en' };
     const content = document.getElementById('content');
 
-    let REVIEWS = [];   // dataset actual
-    let APP = null;     // app seleccionada
-    let shown = PAGE;
-    let view = { q: '', rf: 'all' };
+    let STORE = 'apple';
+    let REVIEWS = [], APP = null, shown = PAGE;
+    let view = { q: '', rf: 'all', topic: 'all' };
 
-    // ---------- utilidades ----------
+    // ---------- utils ----------
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const normText = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
     function parseDate(s){ if(!s) return null; const d=new Date(String(s).replace(' ','T')); return isNaN(d)?null:d; }
     function fmtDate(d){ return d ? d.toLocaleDateString('es-PE',{year:'numeric',month:'short',day:'numeric'}) : 's/f'; }
     function starStr(r){ r=Math.round(Number(r)||0); let s=''; for(let i=1;i<=5;i++) s+= i<=r?'★':'<span class="off">★</span>'; return s; }
     function get(o,k,sub='label',def=null){ return (o&&o[k]&&o[k][sub]!==undefined)?o[k][sub]:def; }
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    function langFor(cc){ return LANG[cc] || 'es'; }
 
-    // ---------- 1) BÚSQUEDA DE APPS ----------
+    // ---------- backend (Google Play) ----------
+    const getBackend = () => (localStorage.getItem('gp_backend') || '').replace(/\/+$/,'');
+    function setBackend(u){ localStorage.setItem('gp_backend', (u||'').trim().replace(/\/+$/,'')); }
+
+    // ---------- quick chips per store ----------
+    const CHIPS = {
+      apple: [
+        {id:'6736497481', name:'Nueva BanBif App', label:'BanBif'},
+        {id:'1478814349', name:'Agora – Ahorra y Disfruta', label:'Agora'},
+        {id:'1147249919', name:'Yape', label:'Yape'},
+        {id:'777961079',  name:'Banca Móvil BCP', label:'BCP'},
+        {id:'378649517',  name:'Interbank APP', label:'Interbank'},
+      ],
+      google: [
+        {id:'pe.com.banbif.pnappmobile', name:'Nueva BanBif App', label:'BanBif'},
+        {id:'com.bcp.innovacxion.yapeapp', name:'Yape', label:'Yape'},
+        {id:'com.bcp.bank.bcp', name:'Banca Móvil BCP', label:'BCP'},
+        {id:'pe.com.interbank.mobilebanking', name:'Interbank APP', label:'Interbank'},
+      ],
+    };
+    function renderChips(){
+      document.getElementById('chips').innerHTML = CHIPS[STORE].map(c =>
+        `<button class="chip" data-id="${esc(c.id)}" data-name="${esc(c.name)}">${esc(c.label)}</button>`).join(' ');
+    }
+
+    // ---------- 1) SEARCH ----------
     async function searchApps(term, cc){
-      const url = `https://itunes.apple.com/search?term=${encodeURIComponent(term)}&country=${cc}&entity=software&limit=24`;
-      const r = await fetch(url);
-      if(!r.ok) throw new Error('Búsqueda falló ('+r.status+')');
-      const j = await r.json();
-      return j.results || [];
+      if(STORE === 'apple'){
+        const r = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(term)}&country=${cc}&entity=software&limit=24`);
+        if(!r.ok) throw new Error('Búsqueda falló ('+r.status+')');
+        const j = await r.json();
+        return (j.results||[]).map(a => ({ id:a.trackId, name:a.trackName, dev:a.sellerName||'', icon:a.artworkUrl100||'', rating:a.averageUserRating||0, cnt:a.userRatingCount||0, genre:a.primaryGenreName||'' }));
+      } else {
+        const be = getBackend();
+        if(!be) { const e = new Error('NO_BACKEND'); e.code='NO_BACKEND'; throw e; }
+        const r = await fetch(`${be}/api/gplay-search?term=${encodeURIComponent(term)}&country=${cc}&lang=${langFor(cc)}`);
+        if(!r.ok){ const t = await r.text().catch(()=> ''); throw new Error('Backend respondió '+r.status+(t?': '+t.slice(0,120):'')); }
+        const j = await r.json();
+        return (j.apps||[]).map(a => ({ id:a.appId, name:a.title, dev:a.developer||'', icon:a.icon||'', rating:a.score||0, cnt:0, genre:a.genre||'' }));
+      }
     }
 
     function renderResults(list, cc){
       if(!list.length){ content.innerHTML = '<div class="hint">Sin resultados. Prueba otro nombre o cambia la tienda (país).</div>'; return; }
-      content.innerHTML = `
-        <div class="panel">
-          <h2>Resultados <span style="color:var(--ink-soft);font-weight:600">(${list.length}) — elige una app</span></h2>
-          <div class="results">
-            ${list.map(a => `
-              <button class="app-card" data-id="${a.trackId}" data-cc="${cc}" data-name="${esc(a.trackName)}" data-art="${esc(a.artworkUrl100||'')}" data-dev="${esc(a.sellerName||'')}" data-store="${a.averageUserRating||0}" data-cnt="${a.userRatingCount||0}">
-                <img src="${esc(a.artworkUrl100||'')}" alt="" loading="lazy" />
-                <div>
-                  <div class="ac-name">${esc(a.trackName)}</div>
-                  <div class="ac-dev">${esc(a.sellerName||'')}</div>
-                  <div class="ac-meta">${a.averageUserRating?`<b>${a.averageUserRating.toFixed(1)}★</b> · ${(a.userRatingCount||0).toLocaleString('es-PE')} valoraciones`:'Sin valoraciones'} · ${esc(a.primaryGenreName||'')}</div>
-                </div>
-              </button>`).join('')}
-          </div>
-        </div>`;
+      content.innerHTML = `<div class="panel"><h2>Resultados <span class="hint-sm">(${list.length}) — elige una app</span></h2>
+        <div class="results">${list.map(a => `
+          <button class="app-card" data-id="${esc(a.id)}" data-cc="${cc}" data-name="${esc(a.name)}" data-art="${esc(a.icon)}" data-dev="${esc(a.dev)}" data-store="${a.rating||0}">
+            <img src="${esc(a.icon)}" alt="" loading="lazy" />
+            <div><div class="ac-name">${esc(a.name)}</div><div class="ac-dev">${esc(a.dev)}</div>
+            <div class="ac-meta">${a.rating?`<b>${Number(a.rating).toFixed(1)}★</b>`:'Sin rating'}${a.cnt?` · ${a.cnt.toLocaleString('es-PE')} valoraciones`:''}${a.genre?` · ${esc(a.genre)}`:''}</div></div>
+          </button>`).join('')}</div></div>`;
     }
 
-    // ---------- 2) SCRAPING DE RESEÑAS (RSS) ----------
-    function normalize(entry, app){
-      return {
-        source: 'Apple App Store',
-        app_name: app.name, app_id: String(app.id),
-        review_id: get(entry,'id') || (get(entry,'id','label')) || crypto.randomUUID(),
-        review_title: get(entry,'title'),
-        review_text: get(entry,'content'),
-        rating: Number(get(entry,'im:rating')) || null,
-        user_name: get(entry,'author','label') || (entry.author && entry.author.name && entry.author.name.label) || 'Anónimo',
-        review_date: get(entry,'updated'),
-        app_version: get(entry,'im:version'),
-        developer_response: null,
-        country: app.cc,
-        extracted_at: new Date().toISOString(),
-      };
+    function backendHelp(){
+      return `<div class="panel"><div class="err"><b>Google Play necesita un backend.</b><br><br>
+        A diferencia de Apple, Google Play no permite llamadas desde el navegador. Despliega el repo
+        <a href="https://github.com/nelson2206/app-reviews-api" target="_blank" rel="noopener">app-reviews-api</a>
+        en Vercel (botón de 1 clic en su README) y pega la URL en <b>⚙ Backend Google Play</b> (arriba). Solo se hace una vez.</div></div>`;
     }
 
-    const sleep = ms => new Promise(r => setTimeout(r, ms));
-
-    // Trae una página con reintentos ante rate-limit (429) u otros errores transitorios.
+    // ---------- 2) SCRAPE ----------
+    function normalizeApple(entry, app){
+      return { source:'Apple App Store', app_name:app.name, app_id:String(app.id),
+        review_id: get(entry,'id') || crypto.randomUUID(),
+        review_title: get(entry,'title'), review_text: get(entry,'content'),
+        rating: Number(get(entry,'im:rating'))||null,
+        user_name: (entry.author && entry.author.name && entry.author.name.label) || 'Anónimo',
+        review_date: get(entry,'updated'), app_version: get(entry,'im:version'),
+        developer_response: null, country: app.cc, extracted_at: new Date().toISOString() };
+    }
     async function fetchPage(url){
-      for(let attempt=0; attempt<3; attempt++){
-        try {
-          const r = await fetch(url);
-          if(r.ok) return await r.json();
-          if(r.status===429 || r.status>=500){ await sleep(800*(attempt+1)); continue; }
-          return null; // 4xx no recuperable (p.ej. 404)
-        } catch(e){ await sleep(800*(attempt+1)); }
+      for(let a=0;a<3;a++){
+        try { const r = await fetch(url); if(r.ok) return await r.json(); if(r.status===429||r.status>=500){ await sleep(800*(a+1)); continue; } return null; }
+        catch(e){ await sleep(800*(a+1)); }
       }
-      return undefined; // falló tras los reintentos (probable rate-limit)
+      return undefined;
     }
-
-    async function scrapeReviews(app, onProgress){
-      const all = []; const seen = new Set();
-      for(let p=1; p<=MAX_RSS_PAGES; p++){
+    async function scrapeApple(app, onProgress){
+      const all=[], seen=new Set();
+      for(let p=1;p<=MAX_RSS_PAGES;p++){
         onProgress(`Descargando página ${p} de ${MAX_RSS_PAGES}… (${all.length} reseñas)`);
-        const url = `https://itunes.apple.com/${app.cc}/rss/customerreviews/page=${p}/id=${app.id}/sortby=mostrecent/json`;
-        const j = await fetchPage(url);
-        if(j === undefined){ // rate-limit / red: si es la pág.1 avisamos, si no, cortamos con lo que haya
-          if(p===1) throw new Error('Apple limitó temporalmente las solicitudes (rate-limit). Espera unos segundos y vuelve a intentar.');
-          break;
-        }
-        if(j === null) break; // app/feed inexistente
-        let entries = (j.feed && j.feed.entry) || [];
-        if(!Array.isArray(entries)) entries = entries ? [entries] : [];
-        const reviews = entries.filter(e => e && !e['im:name']); // descarta metadata de la app
-        if(reviews.length === 0) break;
-        let added = 0;
-        for(const e of reviews){
-          const n = normalize(e, app);
-          const id = String(n.review_id);
-          if(seen.has(id)) continue;
-          seen.add(id); all.push(n); added++;
-        }
-        if(added === 0) break; // sólo duplicados -> fin del feed
-        await sleep(220);      // respiro entre páginas para no gatillar rate-limit
+        const j = await fetchPage(`https://itunes.apple.com/${app.cc}/rss/customerreviews/page=${p}/id=${app.id}/sortby=mostrecent/json`);
+        if(j===undefined){ if(p===1) throw new Error('Apple limitó temporalmente las solicitudes (rate-limit). Espera unos segundos y reintenta.'); break; }
+        if(j===null) break;
+        let e=(j.feed&&j.feed.entry)||[]; if(!Array.isArray(e)) e=e?[e]:[];
+        const rv=e.filter(x=>x&&!x['im:name']); if(!rv.length) break;
+        let added=0; for(const x of rv){ const n=normalizeApple(x,app); const id=String(n.review_id); if(seen.has(id))continue; seen.add(id); all.push(n); added++; }
+        if(!added) break; await sleep(220);
       }
       all.sort((a,b)=>(parseDate(b.review_date)?.getTime()||0)-(parseDate(a.review_date)?.getTime()||0));
       return all;
     }
+    async function scrapeGoogle(app, onProgress){
+      const be = getBackend(); if(!be){ const e=new Error('NO_BACKEND'); e.code='NO_BACKEND'; throw e; }
+      onProgress('Conectando con el backend y extrayendo reseñas de Google Play…');
+      const url = `${be}/api/gplay-reviews?appId=${encodeURIComponent(app.id)}&country=${app.cc}&lang=${langFor(app.cc)}&max=${GP_MAX}&name=${encodeURIComponent(app.name)}`;
+      const r = await fetch(url);
+      if(!r.ok){ const t=await r.text().catch(()=> ''); throw new Error('Backend respondió '+r.status+(t?': '+t.slice(0,140):'')); }
+      const j = await r.json();
+      const rev = j.reviews||[];
+      rev.sort((a,b)=>(parseDate(b.review_date)?.getTime()||0)-(parseDate(a.review_date)?.getTime()||0));
+      return rev;
+    }
 
     async function selectApp(app){
-      APP = app; REVIEWS = []; shown = PAGE; view = { q:'', rf:'all' };
+      APP = { ...app, store: STORE }; REVIEWS=[]; shown=PAGE; view={q:'',rf:'all',topic:'all'};
       content.innerHTML = `<div class="loading"><div class="spinner"></div><div class="pmsg" id="pmsg">Iniciando…</div></div>`;
       const pmsg = document.getElementById('pmsg');
       try {
-        REVIEWS = await scrapeReviews(app, m => { if(pmsg) pmsg.textContent = m; });
-        if(!REVIEWS.length){
-          content.innerHTML = `<div class="panel"><div class="err">No se encontraron reseñas para <b>${esc(app.name)}</b> en la tienda <b>${app.cc.toUpperCase()}</b>. Puede que la app no tenga reseñas en ese país o que Apple no las exponga vía RSS. Prueba otra tienda.</div></div>`;
-          return;
-        }
+        REVIEWS = STORE==='apple' ? await scrapeApple(app, m=>pmsg&&(pmsg.textContent=m))
+                                  : await scrapeGoogle(app, m=>pmsg&&(pmsg.textContent=m));
+        if(!REVIEWS.length){ content.innerHTML = `<div class="panel"><div class="err">No se encontraron reseñas para <b>${esc(app.name)}</b> en la tienda <b>${app.cc.toUpperCase()}</b>. Prueba otra tienda (país).</div></div>`; return; }
         renderDashboard();
       } catch(e){
-        content.innerHTML = `<div class="panel"><div class="err">Error al extraer reseñas: ${esc(e.message)}</div></div>`;
+        if(e.code==='NO_BACKEND'){ content.innerHTML = backendHelp(); openCfg(true); }
+        else content.innerHTML = `<div class="panel"><div class="err">Error al extraer reseñas: ${esc(e.message)}</div></div>`;
       }
     }
 
-    // ---------- 3) DASHBOARD ----------
-    function downloadFile(name, text, type){
-      const blob = new Blob([text], {type}); const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = name; a.click();
-      setTimeout(()=>URL.revokeObjectURL(url), 1500);
+    // ---------- 3) TOPIC ANALYSIS (cliente) ----------
+    const TOPICS = [
+      { key:'acceso', ico:'🔐', name:'Acceso / Login', words:['clave','contrasena','ingresar','no puedo ingresar','acceso','acceder','no me deja entrar','token','otp','codigo de verificac','verificac','registr','activ mi','iniciar sesion','logue','login','bloque mi cuenta','cuenta bloque','desbloque'] },
+      { key:'biometria', ico:'🙂', name:'Biometría', words:['huella','face id','facial','reconocimiento','biometr'] },
+      { key:'estabilidad', ico:'🐢', name:'Estabilidad / Rendimiento', words:['lent','demor','no carga','se cuelg','cuelg','se traba','traba','se cae','se cierra','cierra sola','crash','error','fallo','falla','bug','no funciona','no abre','colaps','pesad','no responde'] },
+      { key:'transferencias', ico:'💸', name:'Transferencias / Pagos', words:['transfer','no me llego','deposit','envi dinero','envio de','operacion','yape','plin','cci','recarg','pago de','pagar'] },
+      { key:'comisiones', ico:'🧾', name:'Comisiones / Cobros', words:['comision','me cobr','cobro indebido','cobran','tarifa','interes','mantenimiento','membresia','me descont'] },
+      { key:'atencion', ico:'🎧', name:'Atención al cliente', words:['atencion','soporte','reclamo','ayuda','call center','callcenter','no contestan','respuesta','agencia','asesor','no resuelven','nadie responde'] },
+      { key:'seguridad', ico:'🛡️', name:'Seguridad / Fraude', words:['fraude','estafa','me robaron','robo','hacke','suplant','clonar','phishing','seguridad'] },
+      { key:'actualizacion', ico:'⬆️', name:'Actualización / Versión', words:['actualiz','nueva version','ultima version','update','desde la actualiz'] },
+      { key:'ux', ico:'✨', name:'Experiencia / UX', words:['interfaz','diseno','facil de usar','intuitiv','practica','complicad','confus','engorros','sencill','amigable'] },
+    ];
+    function matchTopics(txt){ const t=normText(txt); return TOPICS.filter(tp => tp.words.some(w => t.includes(w))).map(tp=>tp.key); }
+    const rateClass = r => r==null?'' : (r<2.5?'rate-bad':(r<3.5?'rate-mid':'rate-good'));
+
+    function analyzeTopics(){
+      const agg = {}; TOPICS.forEach(t=>agg[t.key]={key:t.key,ico:t.ico,name:t.name,count:0,sum:0,neg:0});
+      for(const r of REVIEWS){
+        const keys = matchTopics((r.review_title||'')+' '+(r.review_text||''));
+        const rt = Number(r.rating);
+        for(const k of keys){ const a=agg[k]; a.count++; if(rt){ a.sum+=rt; if(rt<=2)a.neg++; } }
+      }
+      const arr = Object.values(agg).filter(a=>a.count>0).map(a=>({ ...a, avg: a.sum? a.sum/a.count : null, pctNeg: a.count? Math.round(a.neg/a.count*100):0 }));
+      arr.sort((a,b)=>b.count-a.count);
+      return arr;
     }
-    function toCSV(rows){
-      const cols = ['source','app_name','app_id','review_id','review_title','review_text','rating','user_name','review_date','app_version','developer_response','country','extracted_at'];
-      const q = v => '"'+String(v==null?'':v).replace(/"/g,'""')+'"';
-      return '﻿'+cols.join(',')+'\n'+rows.map(r=>cols.map(c=>q(r[c])).join(',')).join('\n');
-    }
-    function baseName(){ return 'reviews_'+String(APP.name).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'_'+APP.cc; }
+
+    // ---------- dashboard ----------
+    function downloadFile(name, text, type){ const b=new Blob([text],{type}); const u=URL.createObjectURL(b); const a=document.createElement('a'); a.href=u; a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(u),1500); }
+    function toCSV(rows){ const cols=['source','app_name','app_id','review_id','review_title','review_text','rating','user_name','review_date','app_version','developer_response','country','extracted_at']; const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"'; return '﻿'+cols.join(',')+'\n'+rows.map(r=>cols.map(c=>q(r[c])).join(',')).join('\n'); }
+    function baseName(){ return 'reviews_'+String(APP.name).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'_'+APP.cc+'_'+APP.store; }
 
     function filtered(){
-      const q = view.q.trim().toLowerCase(), rf = view.rf;
-      return REVIEWS.filter(r => {
+      const q=view.q.trim().toLowerCase(), rf=view.rf, tp=view.topic;
+      return REVIEWS.filter(r=>{
         if(rf!=='all' && Math.round(Number(r.rating))!==Number(rf)) return false;
+        if(tp && tp!=='all' && !matchTopics((r.review_title||'')+' '+(r.review_text||'')).includes(tp)) return false;
         if(q){ const hay=((r.review_title||'')+' '+(r.review_text||'')+' '+(r.user_name||'')).toLowerCase(); if(!hay.includes(q)) return false; }
         return true;
       });
     }
-
-    function reviewHTML(r){
-      const d = parseDate(r.review_date);
-      return `<div class="review">
-        <div class="review-head">
-          <span class="stars">${starStr(r.rating)}</span>
-          ${r.review_title?`<span class="review-title">${esc(r.review_title)}</span>`:''}
-        </div>
-        ${r.review_text?`<div class="review-text">${esc(r.review_text)}</div>`:''}
-        <div class="review-meta">${esc(r.user_name)} · ${fmtDate(d)}${r.app_version?' · v'+esc(r.app_version):''}</div>
-      </div>`;
-    }
+    function reviewHTML(r){ const d=parseDate(r.review_date); return `<div class="review">
+      <div class="review-head"><span class="stars">${starStr(r.rating)}</span>${r.review_title?`<span class="review-title">${esc(r.review_title)}</span>`:''}</div>
+      ${r.review_text?`<div class="review-text">${esc(r.review_text)}</div>`:''}
+      <div class="review-meta">${esc(r.user_name)} · ${fmtDate(d)}${r.app_version?' · v'+esc(r.app_version):''}</div>
+      ${r.developer_response?`<div class="dev-resp"><b>Respuesta del desarrollador:</b> ${esc(r.developer_response)}</div>`:''}</div>`; }
 
     function renderList(){
-      const list = filtered(); const slice = list.slice(0, shown);
-      const box = document.getElementById('reviews'); if(!box) return;
-      const panel = box.closest('.panel');
-      panel.querySelector('h2').innerHTML = `Comentarios <span style="color:var(--ink-soft);font-weight:600">(${list.length})</span>`;
+      const list=filtered(), slice=list.slice(0,shown), box=document.getElementById('reviews'); if(!box) return;
+      const panel=box.closest('.panel');
+      panel.querySelector('h2').innerHTML = `Comentarios <span class="hint-sm">(${list.length}${view.topic!=='all'?' · tema filtrado':''})</span>`;
       box.innerHTML = slice.length ? slice.map(reviewHTML).join('') : '<div class="empty">Sin reseñas que coincidan con el filtro.</div>';
-      const old = document.getElementById('more'); if(old) old.remove();
-      if(list.length > shown){
-        const b = document.createElement('button'); b.className='more'; b.id='more';
-        b.textContent = `Ver más (${list.length-shown} restantes)`;
-        b.onclick = () => { shown += PAGE; renderList(); };
-        panel.appendChild(b);
-      }
+      const old=document.getElementById('more'); if(old) old.remove();
+      if(list.length>shown){ const b=document.createElement('button'); b.className='more'; b.id='more'; b.textContent=`Ver más (${list.length-shown} restantes)`; b.onclick=()=>{shown+=PAGE;renderList();}; panel.appendChild(b); }
     }
 
     function renderDashboard(){
-      const rated = REVIEWS.filter(r => Number(r.rating)>0);
-      const avg = rated.length ? rated.reduce((s,r)=>s+Number(r.rating),0)/rated.length : 0;
+      const rated=REVIEWS.filter(r=>Number(r.rating)>0);
+      const avg=rated.length?rated.reduce((s,r)=>s+Number(r.rating),0)/rated.length:0;
       const dist=[0,0,0,0,0]; rated.forEach(r=>{const n=Math.round(Number(r.rating)); if(n>=1&&n<=5)dist[n-1]++;});
-      const maxd = Math.max(...dist,1);
-      const promoters = rated.filter(r=>Number(r.rating)>=4).length;
-      const detractors = rated.filter(r=>Number(r.rating)<=2).length;
-      const dates = REVIEWS.map(r=>parseDate(r.review_date)).filter(Boolean).sort((a,b)=>a-b);
+      const maxd=Math.max(...dist,1);
+      const promoters=rated.filter(r=>Number(r.rating)>=4).length, detractors=rated.filter(r=>Number(r.rating)<=2).length;
+      const dates=REVIEWS.map(r=>parseDate(r.review_date)).filter(Boolean).sort((a,b)=>a-b);
+      const topics=analyzeTopics(), maxt=Math.max(...topics.map(t=>t.count),1);
+      const pain=[...topics].filter(t=>t.avg!=null).sort((a,b)=>(a.avg-b.avg)||(b.count-a.count))[0];
+      const win =[...topics].filter(t=>t.avg!=null&&t.count>=3).sort((a,b)=>b.avg-a.avg)[0];
 
       content.innerHTML = `
         <div class="app-head">
           ${APP.art?`<img src="${esc(APP.art)}" alt="" />`:''}
-          <div>
-            <div class="ah-name">${esc(APP.name)}</div>
-            <div class="ah-dev">${esc(APP.dev||'')} · tienda ${APP.cc.toUpperCase()}${APP.storeRating?` · ${Number(APP.storeRating).toFixed(1)}★ globales`:''}</div>
-          </div>
-          <div class="ah-actions">
-            <button class="btn-sm" id="dl-csv">⬇ CSV</button>
-            <button class="btn-sm" id="dl-json">⬇ JSON</button>
-            <button class="btn-sm" id="new">↺ Nueva búsqueda</button>
-          </div>
+          <div><div class="ah-name">${esc(APP.name)} <span class="store-pill ${APP.store}">${APP.store==='apple'?'App Store':'Google Play'}</span></div>
+          <div class="ah-dev">${esc(APP.dev||'')} · tienda ${APP.cc.toUpperCase()}</div></div>
+          <div class="ah-actions"><button class="btn-sm" id="dl-csv">⬇ CSV</button><button class="btn-sm" id="dl-json">⬇ JSON</button><button class="btn-sm" id="new">↺ Nueva búsqueda</button></div>
         </div>
-
         <div class="kpis">
           <div class="kpi"><div class="label">Reseñas (muestra)</div><div class="value">${REVIEWS.length}</div><div class="sub">más recientes</div></div>
           <div class="kpi"><div class="label">Promedio muestra</div><div class="value">${avg.toFixed(2)} <small>/ 5</small></div><div class="sub">${starStr(avg)}</div></div>
@@ -385,54 +423,78 @@
           <div class="kpi"><div class="label">Detractores 1–2★</div><div class="value">${rated.length?Math.round(detractors/rated.length*100):0}<small>%</small></div><div class="sub">${detractors} reseñas</div></div>
           <div class="kpi"><div class="label">Periodo</div><div class="value" style="font-size:1.05rem;line-height:1.4">${dates.length?fmtDate(dates[0]):'—'}<br>→ ${dates.length?fmtDate(dates[dates.length-1]):'—'}</div></div>
         </div>
-
-        <div class="panel">
-          <h2>Distribución de calificaciones</h2>
+        <div class="panel"><h2>Distribución de calificaciones</h2>
           ${[5,4,3,2,1].map(n=>{const c=dist[n-1];return `<div class="dist-row"><span class="star-lbl">${n} ${STAR}</span><div class="bar-track"><div class="bar-fill" style="width:${c/maxd*100}%"></div></div><span class="count">${c} · ${rated.length?Math.round(c/rated.length*100):0}%</span></div>`;}).join('')}
         </div>
-
-        <div class="panel">
-          <h2>Comentarios</h2>
-          <div class="controls">
-            <input id="q" type="search" placeholder="Buscar en comentarios, títulos o usuarios…" />
-            <select id="rf"><option value="all">Todas las estrellas</option><option value="5">5 ★</option><option value="4">4 ★</option><option value="3">3 ★</option><option value="2">2 ★</option><option value="1">1 ★</option></select>
+        <div class="panel"><h2>Análisis de temas <span class="hint-sm">— de qué hablan las reseñas (clic para filtrar)</span></h2>
+          <div class="topic-summary">
+            ${pain?`<div class="ts-card pain"><div class="ts-lbl">🔥 Principal foco de dolor</div><div class="ts-val">${pain.ico} ${esc(pain.name)}</div><div class="ts-sub">${pain.count} menciones · ${pain.avg.toFixed(1)}★ promedio · ${pain.pctNeg}% negativas</div></div>`:''}
+            ${win?`<div class="ts-card win"><div class="ts-lbl">⭐ Mejor valorado</div><div class="ts-val">${win.ico} ${esc(win.name)}</div><div class="ts-sub">${win.count} menciones · ${win.avg.toFixed(1)}★ promedio</div></div>`:''}
           </div>
+          <div id="topics">
+            ${topics.length?topics.map(t=>`<div class="topic" data-topic="${t.key}">
+              <span class="t-ico">${t.ico}</span><span class="t-name">${esc(t.name)}</span>
+              <span class="t-track"><span class="t-fill" style="width:${t.count/maxt*100}%;background:${t.avg!=null&&t.avg<2.5?'linear-gradient(90deg,var(--red),#ff6b8f)':t.avg!=null&&t.avg<3.5?'linear-gradient(90deg,var(--amber),#ffd27a)':'linear-gradient(90deg,var(--green),#8ad9b8)'}"></span></span>
+              <span class="t-cnt">${t.count} · ${Math.round(t.count/REVIEWS.length*100)}%</span>
+              <span class="t-rate ${rateClass(t.avg)}">${t.avg!=null?t.avg.toFixed(1)+'★':'—'}</span>
+            </div>`).join(''):'<div class="empty">Sin temas detectados en esta muestra.</div>'}
+          </div>
+          <button class="topic-reset" id="t-reset">✕ Quitar filtro de tema</button>
+        </div>
+        <div class="panel"><h2>Comentarios</h2>
+          <div class="controls"><input id="q" type="search" placeholder="Buscar en comentarios, títulos o usuarios…" />
+          <select id="rf"><option value="all">Todas las estrellas</option><option value="5">5 ★</option><option value="4">4 ★</option><option value="3">3 ★</option><option value="2">2 ★</option><option value="1">1 ★</option></select></div>
           <div id="reviews"></div>
         </div>`;
 
       document.getElementById('dl-csv').onclick = () => downloadFile(baseName()+'.csv', toCSV(REVIEWS), 'text/csv;charset=utf-8');
       document.getElementById('dl-json').onclick = () => downloadFile(baseName()+'.json', JSON.stringify(REVIEWS,null,2), 'application/json');
-      document.getElementById('new').onclick = () => { content.innerHTML='<div class="hint">Escribe una empresa y pulsa <b>Buscar</b>, o usa una prueba rápida.</div>'; document.getElementById('term').focus(); };
+      document.getElementById('new').onclick = resetHome;
       const q=document.getElementById('q'), rf=document.getElementById('rf');
-      q.oninput = () => { view.q=q.value; shown=PAGE; renderList(); };
-      rf.onchange = () => { view.rf=rf.value; shown=PAGE; renderList(); };
+      q.oninput=()=>{view.q=q.value;shown=PAGE;renderList();}; rf.onchange=()=>{view.rf=rf.value;shown=PAGE;renderList();};
+      document.getElementById('topics').addEventListener('click', e=>{ const row=e.target.closest('.topic'); if(!row) return; const k=row.dataset.topic; view.topic = view.topic===k?'all':k; shown=PAGE; syncTopicUI(); renderList(); });
+      document.getElementById('t-reset').onclick = ()=>{ view.topic='all'; shown=PAGE; syncTopicUI(); renderList(); };
       renderList();
     }
-
-    // ---------- eventos ----------
-    async function doSearch(){
-      const term = document.getElementById('term').value.trim();
-      const cc = document.getElementById('country').value;
-      if(!term){ document.getElementById('term').focus(); return; }
-      content.innerHTML = `<div class="loading"><div class="spinner"></div><div class="pmsg">Buscando apps…</div></div>`;
-      try { const list = await searchApps(term, cc); renderResults(list, cc); }
-      catch(e){ content.innerHTML = `<div class="panel"><div class="err">${esc(e.message)}</div></div>`; }
+    function syncTopicUI(){
+      document.querySelectorAll('.topic').forEach(r=>r.classList.toggle('active', r.dataset.topic===view.topic));
+      const rs=document.getElementById('t-reset'); if(rs) rs.classList.toggle('show', view.topic!=='all');
     }
 
+    // ---------- nav / events ----------
+    function resetHome(){ content.innerHTML='<div class="hint">Elige tienda, escribe una empresa y pulsa <b>Buscar</b>, o usa una prueba rápida.</div>'; document.getElementById('term').focus(); }
+    async function doSearch(){
+      const term=document.getElementById('term').value.trim(), cc=document.getElementById('country').value;
+      if(!term){ document.getElementById('term').focus(); return; }
+      content.innerHTML = `<div class="loading"><div class="spinner"></div><div class="pmsg">Buscando apps…</div></div>`;
+      try { renderResults(await searchApps(term, cc), cc); }
+      catch(e){ if(e.code==='NO_BACKEND'){ content.innerHTML = backendHelp(); openCfg(true); } else content.innerHTML = `<div class="panel"><div class="err">${esc(e.message)}</div></div>`; }
+    }
+    function openCfg(show){ const c=document.getElementById('cfg'); c.classList.toggle('show', show!==undefined?show:!c.classList.contains('show')); }
+
     document.getElementById('go').onclick = doSearch;
-    document.getElementById('term').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
-
-    // clic en tarjeta de resultado
-    content.addEventListener('click', e => {
-      const card = e.target.closest('.app-card'); if(!card) return;
-      selectApp({ id:card.dataset.id, cc:card.dataset.cc, name:card.dataset.name, art:card.dataset.art, dev:card.dataset.dev, storeRating:card.dataset.store });
+    document.getElementById('term').addEventListener('keydown', e=>{ if(e.key==='Enter') doSearch(); });
+    document.getElementById('store').addEventListener('click', e=>{
+      const b=e.target.closest('button'); if(!b) return;
+      STORE=b.dataset.store;
+      document.querySelectorAll('#store button').forEach(x=>x.classList.toggle('active',x===b));
+      document.getElementById('cfg-toggle').style.display = STORE==='google'?'inline':'none';
+      if(STORE!=='google') openCfg(false);
+      renderChips(); resetHome();
     });
+    document.getElementById('cfg-toggle').onclick = ()=>openCfg();
+    document.getElementById('cfg-save').onclick = ()=>{ setBackend(document.getElementById('cfg-url').value); document.getElementById('cfg-ok').textContent='✓ guardado'; setTimeout(()=>document.getElementById('cfg-ok').textContent='',2500); };
 
-    // chips de prueba rápida
-    document.querySelectorAll('.chip').forEach(c => c.onclick = () => {
-      document.getElementById('country').value = c.dataset.cc;
-      selectApp({ id:c.dataset.id, cc:c.dataset.cc, name:c.dataset.name, art:'', dev:'', storeRating:0 });
-    });
+    content.addEventListener('click', e=>{ const card=e.target.closest('.app-card'); if(!card) return;
+      selectApp({ id:card.dataset.id, cc:card.dataset.cc, name:card.dataset.name, art:card.dataset.art, dev:card.dataset.dev }); });
+
+    document.getElementById('chips').addEventListener('click', e=>{ const c=e.target.closest('.chip'); if(!c) return;
+      const cc=document.getElementById('country').value;
+      selectApp({ id:c.dataset.id, cc, name:c.dataset.name, art:'', dev:'' }); });
+
+    // init
+    renderChips();
+    document.getElementById('cfg-url').value = getBackend();
   </script>
 </body>
 </html>
