@@ -186,12 +186,11 @@
         <button class="cfg-link" id="cfg-toggle" style="display:none">⚙ Backend Google Play</button>
       </div>
       <div class="cfg-row" id="cfg">
-        <input id="cfg-url" type="url" placeholder="https://app-reviews-api.vercel.app" />
+        <input id="cfg-url" type="url" placeholder="Vacío = usar este mismo sitio" />
         <button class="btn-sm" id="cfg-save">Guardar</button>
         <span class="ok" id="cfg-ok"></span>
-        <span class="muted">Google Play necesita un backend (Apple no). Despliega el repo
-          <a href="https://github.com/nelson2206/app-reviews-api" target="_blank" rel="noopener">app-reviews-api</a>
-          en Vercel (1 clic) y pega aquí la URL. Se guarda en este navegador.</span>
+        <span class="muted">En resenas.mbc-latam.com Google Play funciona solo, no hace falta configurar nada.
+          Pega aquí una URL únicamente si quieres usar otro backend; déjalo vacío para volver al de este sitio. Se guarda en este navegador.</span>
       </div>
     </div>
 
@@ -227,6 +226,17 @@
     // ---------- backend (Google Play) ----------
     const getBackend = () => (localStorage.getItem('gp_backend') || '').replace(/\/+$/,'');
     function setBackend(u){ localStorage.setItem('gp_backend', (u||'').trim().replace(/\/+$/,'')); }
+    // Si la página se sirve desde el Worker de Echo, el backend de Google Play es este mismo sitio.
+    // Una URL guardada en ⚙ tiene prioridad (por si alguien usa su propio backend).
+    let SELF_API = null; // null = sin comprobar
+    async function resolveBackend(){
+      const custom = getBackend(); if(custom) return custom;
+      if(SELF_API === null){
+        try { const r = await fetch('/api/health', { cache:'no-store' }); const j = r.ok ? await r.json() : null; SELF_API = !!(j && j.ok && j.service === 'resenas-web'); }
+        catch(e){ SELF_API = false; }
+      }
+      return SELF_API ? location.origin : '';
+    }
 
     // ---------- quick chips per store ----------
     const CHIPS = {
@@ -257,7 +267,7 @@
         const j = await r.json();
         return (j.results||[]).map(a => ({ id:a.trackId, name:a.trackName, dev:a.sellerName||'', icon:a.artworkUrl100||'', rating:a.averageUserRating||0, cnt:a.userRatingCount||0, genre:a.primaryGenreName||'' }));
       } else {
-        const be = getBackend();
+        const be = await resolveBackend();
         if(!be) { const e = new Error('NO_BACKEND'); e.code='NO_BACKEND'; throw e; }
         const r = await fetch(`${be}/api/gplay-search?term=${encodeURIComponent(term)}&country=${cc}&lang=${langFor(cc)}`);
         if(!r.ok){ const t = await r.text().catch(()=> ''); throw new Error('Backend respondió '+r.status+(t?': '+t.slice(0,120):'')); }
@@ -278,10 +288,10 @@
     }
 
     function backendHelp(){
-      return `<div class="panel"><div class="err"><b>Google Play necesita un backend.</b><br><br>
-        A diferencia de Apple, Google Play no permite llamadas desde el navegador. Despliega el repo
-        <a href="https://github.com/nelson2206/app-reviews-api" target="_blank" rel="noopener">app-reviews-api</a>
-        en Vercel (botón de 1 clic en su README) y pega la URL en <b>⚙ Backend Google Play</b> (arriba). Solo se hace una vez.</div></div>`;
+      return `<div class="panel"><div class="err"><b>Esta copia de la página no incluye el backend de Google Play.</b><br><br>
+        Google Play no permite llamadas desde el navegador y necesita un backend. Abre la versión oficial en
+        <a href="https://resenas.mbc-latam.com/">resenas.mbc-latam.com</a>, donde Google Play ya funciona sin configurar nada,
+        o pega la URL de otro backend en <b>⚙ Backend Google Play</b> (arriba).</div></div>`;
     }
 
     // ---------- 2) SCRAPE ----------
@@ -317,7 +327,7 @@
       return all;
     }
     async function scrapeGoogle(app, onProgress){
-      const be = getBackend(); if(!be){ const e=new Error('NO_BACKEND'); e.code='NO_BACKEND'; throw e; }
+      const be = await resolveBackend(); if(!be){ const e=new Error('NO_BACKEND'); e.code='NO_BACKEND'; throw e; }
       onProgress('Conectando con el backend y extrayendo reseñas de Google Play…');
       const url = `${be}/api/gplay-reviews?appId=${encodeURIComponent(app.id)}&country=${app.cc}&lang=${langFor(app.cc)}&max=${GP_MAX}&name=${encodeURIComponent(app.name)}`;
       const r = await fetch(url);

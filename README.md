@@ -16,10 +16,18 @@ Herramienta para **extraer y explorar reseñas de App Store y Google Play de cua
 - **Análisis de temas** (en el navegador): clasifica las reseñas en categorías (acceso/login, estabilidad, transferencias, comisiones, atención, seguridad, biometría, actualización, UX), con foco de dolor, mejor valorado, menciones, rating por tema y filtro por tema. Funciona para ambas tiendas.
 - Reintentos con *backoff* ante *rate-limit*. Límite: ~500 reseñas (Apple RSS) / configurable hasta 1000 (Google).
 
-### Configurar Google Play (una sola vez)
-1. Despliega [app-reviews-api](https://github.com/nelson2206/app-reviews-api) en Vercel (botón de 1 clic en su README).
-2. Copia la URL del proyecto (ej. `https://app-reviews-api.vercel.app`).
-3. En la app web: tienda **Google Play** → **⚙ Backend Google Play** → pega la URL → **Guardar**.
+### Google Play (sin configurar nada)
+La página y la API de Google Play viven en un mismo Cloudflare Worker (`resenas-web`, carpeta [`worker/`](worker/)):
+la página usa su propio dominio como backend. El botón **⚙ Backend Google Play** solo sirve para apuntar a otro backend
+(por ejemplo el antiguo [app-reviews-api](https://github.com/nelson2206/app-reviews-api) en Vercel, que sigue siendo compatible).
+
+- `GET /api/gplay-search?term=&country=&lang=` (alias `/api/gplay/search?q=`) → lista de apps.
+- `GET /api/gplay-reviews?appId=&country=&lang=&max=&sort=&name=` (alias `/api/gplay/reviews?num=`) → reseñas normalizadas (máx. 2.000).
+- Caché de 6 h por combinación de parámetros; solo las consultas que llegan a Google gastan cupo: 60 por hora por IP y 2.000 por día en total.
+- `google-play-scraper` no corre en Workers, por eso se llama directo a play.google.com con `fetch`.
+- Uso interno y moderado: extraer reseñas de Google Play va contra sus términos de uso.
+
+Desplegar: `cd worker && npx wrangler deploy`. No lleva secretos.
 
 ### 2. Script Python (CLI, solo App Store, para extracción masiva o automatizable)
 - Descarga reseñas con **estrategia dual y tolerante a fallos**: `app-store-scraper` (principal) y *fallback* vía RSS (`requests`).

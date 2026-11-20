@@ -1,0 +1,10 @@
+{
+  "name": "resenas-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Worker de Echo (Reseñas de Apps): página estática + API de Google Play. MBC Perú.",
+  "dependencies": {
+    "google-play-scraper": "^10.1.3"
+  }
+}

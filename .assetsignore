@@ -1,0 +1,3 @@
+# Solo se publica index.html: nada más de la raíz del repo debe quedar público.
+*
+!index.html

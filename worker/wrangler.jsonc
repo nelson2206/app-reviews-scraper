@@ -1,0 +1,20 @@
+{
+  // Echo (Reseñas de Apps): página + API de Google Play en un solo Worker.
+  // Desplegar (desde esta carpeta):  npx wrangler deploy
+  // No lleva secretos. Hostname de producción: resenas.mbc-latam.com (se activa en el corte, ver más abajo).
+  "name": "resenas-web",
+  "main": "index.js",
+  "compatibility_date": "2026-08-01",
+  "workers_dev": true,   // respaldo frente a Netskope (la red de Indra bloquea hostnames nuevos)
+  "preview_urls": false,
+  "assets": {
+    "directory": "..",   // la raíz del repo; .assetsignore deja pasar solo index.html
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]   // lo demás se sirve directo desde assets, sin invocar el Worker
+  },
+  "kv_namespaces": [
+    // Contadores de uso (cupo por IP y por día). No guarda contenido de reseñas.
+    { "binding": "USO", "id": "40d42f902fed42f0b7a5314b3b05f8d3" }
+  ]
+  // En el corte se añade: "routes": [{ "pattern": "resenas.mbc-latam.com", "custom_domain": true }]
+}
